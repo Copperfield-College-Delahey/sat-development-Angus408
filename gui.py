@@ -26,23 +26,30 @@ navigation_bar.grid_columnconfigure(7, weight=1)
 navigation_bar.grid_columnconfigure(8, weight=1)
 navigation_bar.grid_rowconfigure(0, weight=1)
 
-logo = ctk.CTkImage(light_image=Image.open("C:\Software Development/Stats Logo.png"), size=(200, 200))
+logo = ctk.CTkImage(light_image=Image.open("Images/Stats Logo.png"), size=(75, 75))
 logo_label = ctk.CTkLabel(navigation_bar, text="", image=logo)
 logo_label.grid(row=0, column=0, sticky="nsew")
 
 title_label = ctk.CTkLabel(navigation_bar, text="Stats2Drills", font=("ADLaM Display", 40), text_color="White")
-title_label.grid(row=0, column=1, columnspan=2, sticky="w")
+title_label.grid(row=0, column=1, columnspan=2, sticky="nsew")
 
 home_button = ctk.CTkButton(navigation_bar, text="Home", font=("ADLaM Display", 15), fg_color="#16CCCC")
 home_button.grid(row=0, column=3)
-
+home_icon= ctk.CTkImage(light_image=Image.open("Images/white home icon.png"), dark_image=Image.open("Images/white home icon.png"), size=(35, 35))
+home_icon_button = ctk.CTkButton(navigation_bar, text="", image=home_icon, bg_color="#00A29E", fg_color="#00A29E")
+home_icon_button.grid(row=0, column=4, sticky="nsew")
 
 drills_button = ctk.CTkButton(navigation_bar, text="Drills", font=("ADLaM Display", 15), fg_color="#16CCCC")
 drills_button.grid(row=0, column=5)
+drills_icon= ctk.CTkImage(light_image=Image.open("Images/white drills icon.png"), dark_image=Image.open("Images/white drills icon.png"), size=(35, 35))
+drills_icon_button = ctk.CTkButton(navigation_bar, text="", image=drills_icon, bg_color="#00A29E", fg_color="#00A29E")
+drills_icon_button.grid(row=0, column=6, sticky="nsew")
 
 previous_plans_button = ctk.CTkButton(navigation_bar, text="Previous Training Plans", font=("ADLaM Display", 15), fg_color="#16CCCC")
 previous_plans_button.grid(row=0, column=7)
-
+file_icon= ctk.CTkImage(light_image=Image.open("Images/white file icon.png"), dark_image=Image.open("Images/white file icon.png"), size=(35, 35))
+file_icon_button = ctk.CTkButton(navigation_bar, text="", image=file_icon, bg_color="#00A29E", fg_color="#00A29E")
+file_icon_button.grid(row=0, column=8, sticky="nsew")
 
 #Right Column Home page buttons/info
 right_column = ctk.CTkFrame(app, width=600)
@@ -77,15 +84,15 @@ left_column.grid_rowconfigure(0, weight=1)
 left_column.grid_rowconfigure(1, weight=1)
 left_column.grid_rowconfigure(2, weight=1)
 
-stats_diagram = ctk.CTkImage(light_image=Image.open("C:\Software Development/Stats image.png"), dark_image=Image.open("C:\Software Development/Stats image.png"), size=(500,150))
+stats_diagram = ctk.CTkImage(light_image=Image.open("Images/Stats image.png"), dark_image=Image.open("Images/Stats image.png"), size=(500,150))
 stats_diagram_label = ctk.CTkLabel(left_column, text="", image=stats_diagram)
 stats_diagram_label.grid(row=0, column=0, sticky="nsew")
 
-down_arrow = ctk.CTkImage(light_image=Image.open("C:\Software Development/down arrow.png"), dark_image=Image.open("C:\Software Development/down arrow.png"), size=(50,50))
+down_arrow = ctk.CTkImage(light_image=Image.open("Images/down arrow.png"), dark_image=Image.open("Images/down arrow.png"), size=(50,50))
 down_arrow_label = ctk.CTkLabel(left_column, text="", image=down_arrow)
 down_arrow_label.grid(row=1, column=0, sticky="nsew")
 
-plan_diagram = ctk.CTkImage(light_image=Image.open("C:\Software Development/Plan Diagram.png"), dark_image=Image.open("C:\Software Development/Plan Diagram.png"), size=(360,350))
+plan_diagram = ctk.CTkImage(light_image=Image.open("Images/Plan Diagram.png"), dark_image=Image.open("Images/Plan Diagram.png"), size=(360,350))
 plan_diagram_label = ctk.CTkLabel(left_column, text="", image=plan_diagram)
 plan_diagram_label.grid(row=2, column=0, sticky="nsew")
 
