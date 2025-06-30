@@ -13,7 +13,7 @@ app.grid_rowconfigure(0, weight=1)  #Top navigation bar
 app.grid_rowconfigure(1, weight=1)  #Main page content
 
 #Top Navigation bar
-navigation_bar = ctk.CTkFrame(app, bg_color="#00A29E", fg_color="#00A29E")
+navigation_bar = ctk.CTkFrame(app, height=35, bg_color="#00A29E", fg_color="#00A29E")
 navigation_bar.grid(row=0, column=0, columnspan=2, sticky="nsew")
 navigation_bar.grid_columnconfigure(0, weight=1)
 navigation_bar.grid_columnconfigure(1, weight=1)
@@ -33,23 +33,23 @@ logo_label.grid(row=0, column=0, sticky="nsew")
 title_label = ctk.CTkLabel(navigation_bar, text="Stats2Drills", font=("ADLaM Display", 40), text_color="White")
 title_label.grid(row=0, column=1, columnspan=2, sticky="nsew")
 
-home_button = ctk.CTkButton(navigation_bar, text="Home", font=("ADLaM Display", 15), fg_color="#16CCCC")
-home_button.grid(row=0, column=3)
+home_button = ctk.CTkButton(navigation_bar, width=120, height=40, text="Home", font=("ADLaM Display", 15), border_width=2, border_color="white", fg_color="#16CCCC")
+home_button.grid(row=0, column=3, sticky="e")
 home_icon= ctk.CTkImage(light_image=Image.open("Images/white home icon.png"), dark_image=Image.open("Images/white home icon.png"), size=(35, 35))
-home_icon_button = ctk.CTkButton(navigation_bar, text="", image=home_icon, bg_color="#00A29E", fg_color="#00A29E")
-home_icon_button.grid(row=0, column=4, sticky="nsew")
+home_icon_button = ctk.CTkButton(navigation_bar, text="", image=home_icon, bg_color="#00A29E", fg_color="#00A29E", height=30, width=35)
+home_icon_button.grid(row=0, column=4, sticky="w")
 
-drills_button = ctk.CTkButton(navigation_bar, text="Drills", font=("ADLaM Display", 15), fg_color="#16CCCC")
-drills_button.grid(row=0, column=5)
+drills_button = ctk.CTkButton(navigation_bar, height=40, text="Drills", font=("ADLaM Display", 15), border_width=2, border_color="white", fg_color="#16CCCC")
+drills_button.grid(row=0, column=5, sticky="e")
 drills_icon= ctk.CTkImage(light_image=Image.open("Images/white drills icon.png"), dark_image=Image.open("Images/white drills icon.png"), size=(35, 35))
-drills_icon_button = ctk.CTkButton(navigation_bar, text="", image=drills_icon, bg_color="#00A29E", fg_color="#00A29E")
-drills_icon_button.grid(row=0, column=6, sticky="nsew")
+drills_icon_button = ctk.CTkButton(navigation_bar, text="", image=drills_icon, bg_color="#00A29E", fg_color="#00A29E",  height=30, width=35)
+drills_icon_button.grid(row=0, column=6, sticky="w")
 
-previous_plans_button = ctk.CTkButton(navigation_bar, text="Previous Training Plans", font=("ADLaM Display", 15), fg_color="#16CCCC")
-previous_plans_button.grid(row=0, column=7)
+previous_plans_button = ctk.CTkButton(navigation_bar, height=40, text="Previous Training Plans", font=("ADLaM Display", 15), border_width=2, border_color="white", fg_color="#16CCCC")
+previous_plans_button.grid(row=0, column=7, sticky="e")
 file_icon= ctk.CTkImage(light_image=Image.open("Images/white file icon.png"), dark_image=Image.open("Images/white file icon.png"), size=(35, 35))
-file_icon_button = ctk.CTkButton(navigation_bar, text="", image=file_icon, bg_color="#00A29E", fg_color="#00A29E")
-file_icon_button.grid(row=0, column=8, sticky="nsew")
+file_icon_button = ctk.CTkButton(navigation_bar, text="", image=file_icon, bg_color="#00A29E", fg_color="#00A29E",  height=30, width=35)
+file_icon_button.grid(row=0, column=8, sticky="w")
 
 #Right Column Home page buttons/info
 right_column = ctk.CTkFrame(app, width=600)
