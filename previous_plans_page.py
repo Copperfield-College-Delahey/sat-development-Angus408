@@ -1,11 +1,11 @@
 import customtkinter as ctk
 from PIL import Image
 
-class Drills_page(ctk.CTkFrame):
+class Previous_plans_page(ctk.CTkFrame):
     def __init__(self, parent, controller=None):
         super().__init__(parent)
         self.show_frame = controller
-
+        
         #Drills Page content
         #Configure main grid
         self.grid_columnconfigure(0, weight=1) #Left column
@@ -43,19 +43,19 @@ class Drills_page(ctk.CTkFrame):
         home_button.configure(command=lambda: self.show_frame("Home_page"))
         home_icon_button.configure(command=lambda: self.show_frame("Home_page"))
 
-        drills_button = ctk.CTkButton(navigation_bar, height=40, text="Drills", font=("ADLaM Display", 20), text_color="light grey", border_width=2, border_color="light grey", fg_color="#16CCCC", hover_color="#00A29E")
+        drills_button = ctk.CTkButton(navigation_bar, height=40, text="Drills", font=("ADLaM Display", 20), text_color="white", border_width=2, border_color="white", fg_color="#16CCCC", hover_color="#c7c7c7")
         drills_button.grid(row=0, column=5, sticky="e")
-        drills_icon= ctk.CTkImage(light_image=Image.open("Images/grey drills icon.png"), dark_image=Image.open("Images/grey drills icon.png"), size=(35, 35))
-        drills_icon_button = ctk.CTkButton(navigation_bar, text="", image=drills_icon, bg_color="#00A29E", fg_color="#00A29E",  height=30, width=35, hover_color="#00A29E")
+        drills_icon= ctk.CTkImage(light_image=Image.open("Images/white drills icon.png"), dark_image=Image.open("Images/white drills icon.png"), size=(35, 35))
+        drills_icon_button = ctk.CTkButton(navigation_bar, text="", image=drills_icon, bg_color="#00A29E", fg_color="#00A29E",  height=30, width=35, hover_color="#c7c7c7")
         drills_icon_button.grid(row=0, column=6, sticky="w")
         #Configure buttons to display the drills page
         drills_button.configure(command=lambda: self.show_frame("Drills_page"))
         drills_icon_button.configure(command=lambda: self.show_frame("Drills_page"))
 
-        previous_plans_button = ctk.CTkButton(navigation_bar, height=40, text="Previous Training Plans", font=("ADLaM Display", 20), text_color="white", border_width=2, border_color="white", fg_color="#16CCCC", hover_color="#c7c7c7")
+        previous_plans_button = ctk.CTkButton(navigation_bar, height=40, text="Previous Training Plans", font=("ADLaM Display", 20), text_color="light grey", border_width=2, border_color="light grey", fg_color="#16CCCC", hover_color="#00A29E")
         previous_plans_button.grid(row=0, column=7, sticky="e")
-        file_icon= ctk.CTkImage(light_image=Image.open("Images/white file icon.png"), dark_image=Image.open("Images/white file icon.png"), size=(35, 35))
-        file_icon_button = ctk.CTkButton(navigation_bar, text="", image=file_icon, bg_color="#00A29E", fg_color="#00A29E",  height=30, width=35, hover_color="#c7c7c7")
+        file_icon= ctk.CTkImage(light_image=Image.open("Images/grey file icon.png"), dark_image=Image.open("Images/grey file icon.png"), size=(35, 35))
+        file_icon_button = ctk.CTkButton(navigation_bar, text="", image=file_icon, bg_color="#00A29E", fg_color="#00A29E",  height=30, width=35, hover_color="#00A29E")
         file_icon_button.grid(row=0, column=8, sticky="w")
         #Configure buttons to display the previous plans page
         previous_plans_button.configure(command=lambda: self.show_frame("Previous_plans_page"))
