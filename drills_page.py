@@ -15,7 +15,7 @@ class Drills_page(ctk.CTkFrame):
 
         #Navigation bar
         navigation_bar = ctk.CTkFrame(self, height=35, bg_color="#00A29E", fg_color="#00A29E")
-        navigation_bar.grid(row=0, column=0, columnspan=2, sticky="nsew")
+        navigation_bar.grid(row=0, column=0, columnspan=2, sticky="ew")
         navigation_bar.grid_columnconfigure(0, weight=1)
         navigation_bar.grid_columnconfigure(1, weight=1)
         navigation_bar.grid_columnconfigure(2, weight=1)
@@ -60,3 +60,25 @@ class Drills_page(ctk.CTkFrame):
         #Configure buttons to display the previous plans page
         previous_plans_button.configure(command=lambda: self.show_frame("Previous_plans_page"))
         file_icon_button.configure(command=lambda: self.show_frame("Previous_plans_page"))
+
+        #Main content of drills_page
+
+        #Left Column, add new drill button and option to search drills database for particular drill(s)
+        left_column = ctk.CTkFrame(self, width=600, bg_color="#F2F2F2", fg_color="#F2F2F2")
+        left_column.grid(row=1, column=0, sticky="nsew")
+        left_column.grid_columnconfigure(0, weight=1)
+        left_column.grid_rowconfigure(0, weight=1)
+        left_column.grid_rowconfigure(1, weight=1)
+        left_column.grid_rowconfigure(2, weight=1)
+        left_column.grid_rowconfigure(3, weight=1)
+
+        new_drill_button = ctk.CTkButton(left_column, corner_radius=10, text="Add New Drill", font=("ADLaM Display", 25), text_color="white", height=50, fg_color="#FF7A53", hover_color="#c7c7c7")
+        new_drill_button.grid(row=0, column=0, padx=10, pady=10, sticky="ns")
+
+        #User entry box and label with description
+        drill_search_box = ctk.CTkEntry(left_column)
+        drill_search_box.grid(row=1, column=0, padx=10, pady=10, sticky="ew")
+        drill_search_label = ctk.CTkLabel(left_column, text="Search for Drill(s) using name or tag(s)", font=("Abadi", 15))
+        drill_search_label.grid(row=2, column=0, padx=10, pady=10, sticky="ew")
+
+        #Right Column, area to display selected drill or new drill

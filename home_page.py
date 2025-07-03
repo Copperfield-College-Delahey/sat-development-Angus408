@@ -61,7 +61,8 @@ class Home_page(ctk.CTkFrame):
         previous_plans_button.configure(command=lambda: self.show_frame("Previous_plans_page"))
         file_icon_button.configure(command=lambda: self.show_frame("Previous_plans_page"))
 
-
+        #Main content of Home page
+    
         #Right Column Home page buttons/description
         right_column = ctk.CTkFrame(self, width=600, bg_color="#F2F2F2", fg_color="#F2F2F2")
         right_column.grid(row=1, column=1, sticky="nsew")
@@ -90,7 +91,7 @@ class Home_page(ctk.CTkFrame):
 
         #Left Column Home page, diagrams for users
         left_column = ctk.CTkFrame(self, border_width=2, corner_radius=0, border_color="#7F7F7F", bg_color="#F2F2F2", fg_color="#F2F2F2")
-        left_column.grid(row=1, column=0, padx=10, pady=10, sticky="nsew")
+        left_column.grid(row=1, column=0, sticky="nsew")
         left_column.grid_columnconfigure(0, weight=1)
         left_column.grid_rowconfigure(0, weight=1)
         left_column.grid_rowconfigure(1, weight=1)

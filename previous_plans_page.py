@@ -6,7 +6,7 @@ class Previous_plans_page(ctk.CTkFrame):
         super().__init__(parent)
         self.show_frame = controller
         
-        #Drills Page content
+        #Previous plans Page content
         #Configure main grid
         self.grid_columnconfigure(0, weight=1) #Left column
         self.grid_columnconfigure(1, weight=1) #Right column
