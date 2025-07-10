@@ -77,7 +77,9 @@ class Home_page(ctk.CTkFrame):
         import_stats_button.grid(row=0, column=0, padx=10, pady=10, sticky="ew")
         import_stats_label = ctk.CTkLabel(right_column, text="Click this button to import statistics from Excel, ensuring your template matches the image to the left", font=("Abadi",15), wraplength=300, justify="left")
         import_stats_label.grid(row=0, column=1, padx=10, pady=10, sticky="w")
-
+        #Configure button to display stats page and load stats from excel
+        import_stats_button.configure(command=lambda: self.show_frame("Stats_page"))
+    
         generate_plan_button = ctk.CTkButton(right_column, corner_radius=10, text="Generate Training \nPlan", font=("ADLaM Display", 25), text_color="white", image=file_icon, fg_color="#FF7A53", compound="right", hover_color="#c7c7c7")
         generate_plan_button.grid(row=1, column=0, padx=10, pady=10, sticky="ew")
         generate_plan_label = ctk.CTkLabel(right_column, text="Click this button to generate a training plan like the image on the left based on your analysed statistics", font=("Abadi", 15), wraplength=300, justify="left")

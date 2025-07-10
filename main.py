@@ -5,6 +5,7 @@ from PIL import Image
 from home_page import Home_page
 from drills_page import Drills_page
 from previous_plans_page import Previous_plans_page
+from stats_page import Stats_page
 
 app = ctk.CTk(fg_color="#F2F2F2")
 app.title("Stats2Drills GUI Interface")
@@ -22,11 +23,11 @@ container.grid_columnconfigure(0, weight=1) # single column
 def show_frame(page_name):
     pages[page_name].tkraise()
 
-#Load Home_page class
+#Load Home_page
 home_page = Home_page(container, controller=show_frame)
 home_page.grid(row=0, column=0, sticky="nsew")
 
-#Load Drills_page class
+#Load Drills_page
 drills_page = Drills_page(container, controller=show_frame)
 drills_page.grid(row=0, column=0, sticky="nsew")
 
@@ -34,12 +35,17 @@ drills_page.grid(row=0, column=0, sticky="nsew")
 previous_plans_page = Previous_plans_page(container, controller=show_frame)
 previous_plans_page.grid(row=0, column=0, sticky="nsew")
 
+#Load Stats_page
+stats_page = Stats_page(container, controller=show_frame)
+stats_page.grid(row=0, column=0, sticky="nsew")
+
 #Dictionary of pages
 pages = {
     "Home_page": home_page,
     "Drills_page": drills_page,
-    "Previous_plans_page": previous_plans_page
-}
+    "Previous_plans_page": previous_plans_page,
+    "Stats_page": stats_page
+    }
 
 # Initially show Home Page
 show_frame("Home_page")
