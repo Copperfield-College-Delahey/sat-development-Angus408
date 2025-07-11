@@ -61,6 +61,15 @@ class Drills_page(ctk.CTkFrame):
         previous_plans_button.configure(command=lambda: self.show_frame("Previous_plans_page"))
         file_icon_button.configure(command=lambda: self.show_frame("Previous_plans_page"))
 
+        current_plan_button = ctk.CTkButton(navigation_bar, height=40, text="Current Plan", font=("ADLaM Display", 20), text_color="white", border_width=2, border_color="white", fg_color="#16CCCC", hover_color="#00A29E")
+        current_plan_button.grid(row=0, column=9, sticky="e")
+        pencil_icon= ctk.CTkImage(light_image=Image.open("Images/pencil icon.png"), dark_image=Image.open("Images/pencil icon.png"), size=(35, 35))
+        pencil_icon_button = ctk.CTkButton(navigation_bar, text="", image=pencil_icon, bg_color="#00A29E", fg_color="#00A29E",  height=30, width=35, hover_color="#00A29E")
+        pencil_icon_button.grid(row=0, column=10, sticky="w")
+        #Configure buttons to display current plan page
+        current_plan_button.configure(command=lambda: self.show_frame("Current_Plan_page"))
+        pencil_icon_button.configure(command=lambda: self.show_frame("Current_Plan_page"))
+
         #Main content of drills_page
 
         #Left Column, add new drill button and option to search drills database for particular drill(s)
@@ -70,15 +79,12 @@ class Drills_page(ctk.CTkFrame):
         left_column.grid_rowconfigure(0, weight=1)
         left_column.grid_rowconfigure(1, weight=1)
         left_column.grid_rowconfigure(2, weight=1)
-        left_column.grid_rowconfigure(3, weight=1)
 
         new_drill_button = ctk.CTkButton(left_column, corner_radius=10, text="Add New Drill", font=("ADLaM Display", 25), text_color="white", height=50, fg_color="#FF7A53", hover_color="#c7c7c7")
         new_drill_button.grid(row=0, column=0, padx=10, pady=10, sticky="ns")
 
         #User entry box and label with description
-        drill_search_box = ctk.CTkEntry(left_column)
-        drill_search_box.grid(row=1, column=0, padx=10, pady=10, sticky="ew")
-        drill_search_label = ctk.CTkLabel(left_column, text="Search for Drill(s) using name or tag(s)", font=("Abadi", 15))
-        drill_search_label.grid(row=2, column=0, padx=10, pady=10, sticky="ew")
+        drill_search_entry = ctk.CTkEntry(left_column, placeholder_text="Search for Drill(s) using name or tag(s)", placeholder_text_color="Black", justify="center")
+        drill_search_entry.grid(row=1, column=0, padx=10, pady=10, sticky="ew")
 
         #Right Column, area to display selected drill or new drill

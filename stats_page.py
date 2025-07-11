@@ -75,7 +75,7 @@ class Stats_page(ctk.CTkFrame):
 
         instruction_label = ctk.CTkLabel(left_column, text="Enter Team Age", font=("Abadi", 15), text_color="Black")
         instruction_label.grid(row=1, column=0, sticky="s")
-        team_age_entry = ctk.CTkEntry(left_column)
+        team_age_entry = ctk.CTkEntry(left_column, corner_radius=0)
         team_age_entry.grid(row=2, column=0)
         age_description_label = ctk.CTkLabel(left_column, text="Must be either U8s, U10s, U12s, U14s, U16s, U18s or U20s", font=("Abadi", 13), text_color="Black", wraplength=150, justify="center")
         age_description_label.grid(row=3, column=0, sticky="n")

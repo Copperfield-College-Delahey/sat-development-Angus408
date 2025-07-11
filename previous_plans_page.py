@@ -25,6 +25,8 @@ class Previous_plans_page(ctk.CTkFrame):
         navigation_bar.grid_columnconfigure(6, weight=1)
         navigation_bar.grid_columnconfigure(7, weight=1)
         navigation_bar.grid_columnconfigure(8, weight=1)
+        navigation_bar.grid_columnconfigure(9, weight=1)
+        navigation_bar.grid_columnconfigure(10, weight=1)
         navigation_bar.grid_rowconfigure(0, weight=1)
 
         logo = ctk.CTkImage(light_image=Image.open("Images/Stats Logo.png"), size=(75, 75))
@@ -60,3 +62,27 @@ class Previous_plans_page(ctk.CTkFrame):
         #Configure buttons to display the previous plans page
         previous_plans_button.configure(command=lambda: self.show_frame("Previous_plans_page"))
         file_icon_button.configure(command=lambda: self.show_frame("Previous_plans_page"))
+
+        current_plan_button = ctk.CTkButton(navigation_bar, height=40, text="Current Plan", font=("ADLaM Display", 20), text_color="white", border_width=2, border_color="white", fg_color="#16CCCC", hover_color="#00A29E")
+        current_plan_button.grid(row=0, column=9, sticky="e")
+        pencil_icon= ctk.CTkImage(light_image=Image.open("Images/pencil icon.png"), dark_image=Image.open("Images/pencil icon.png"), size=(35, 35))
+        pencil_icon_button = ctk.CTkButton(navigation_bar, text="", image=pencil_icon, bg_color="#00A29E", fg_color="#00A29E",  height=30, width=35, hover_color="#00A29E")
+        pencil_icon_button.grid(row=0, column=10, sticky="w")
+        #Configure buttons to display current plan page
+        current_plan_button.configure(command=lambda: self.show_frame("Current_Plan_page"))
+        pencil_icon_button.configure(command=lambda: self.show_frame("Current_Plan_page"))
+
+
+        #Left Column, displays previous plans with entry box to search for previous plans
+        left_column = ctk.CTkFrame(self, width=600, bg_color="#F2F2F2", fg_color="#F2F2F2")
+        left_column.grid(row=1, column=0, sticky="nsew")
+        left_column.grid_columnconfigure(0, weight=1)
+        left_column.grid_columnconfigure(1, weight=1)
+        left_column.grid_rowconfigure(0, weight=1)
+        left_column.grid_rowconfigure(1, weight=1)
+        left_column.grid_rowconfigure(2, weight=1)
+        left_column.grid_rowconfigure(3, weight=1)
+
+        #User search entry box
+        plan_search_entry = ctk.CTkEntry(left_column, placeholder_text="Search for Previous Training Plan(s)", placeholder_text_color="Black", justify="center")
+        plan_search_entry.grid(row=0, column=0, columnspan=2, padx=10, pady=10, sticky="ew")
