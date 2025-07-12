@@ -1,10 +1,14 @@
 import customtkinter as ctk
 from PIL import Image
+from drills import Drill_manager
 
 class Drills_page(ctk.CTkFrame):
     def __init__(self, parent, controller=None):
         super().__init__(parent)
         self.show_frame = controller
+        
+        #Load Drill_manager
+        self.drill_manager = Drill_manager()
 
         #Drills Page content
         #Configure main grid
@@ -15,7 +19,7 @@ class Drills_page(ctk.CTkFrame):
 
         #Navigation bar
         navigation_bar = ctk.CTkFrame(self, height=35, bg_color="#00A29E", fg_color="#00A29E")
-        navigation_bar.grid(row=0, column=0, columnspan=2, sticky="ew")
+        navigation_bar.grid(row=0, column=0, columnspan=2, sticky="nsew")
         navigation_bar.grid_columnconfigure(0, weight=1)
         navigation_bar.grid_columnconfigure(1, weight=1)
         navigation_bar.grid_columnconfigure(2, weight=1)
@@ -71,6 +75,19 @@ class Drills_page(ctk.CTkFrame):
         pencil_icon_button.configure(command=lambda: self.show_frame("Current_Plan_page"))
 
         #Main content of drills_page
+        #Function to display drills details once button in scrollframe is clicked
+        def show_drill(drill):
+          #converts diagram to CTk Image object
+          diagram = Image.open(drill.drill_diagram)
+          diagram_image = ctk.CTkImage(light_image=diagram, size=(150, 150))
+          diagram_label.configure(text="", image=diagram_image)
+
+          name_label.configure(text=drill.drill_name)
+          duration_label.configure(text=drill.drill_duration)
+          age_label.configure(text=drill.drill_age)
+          tags_label.configure(text=drill.drill_tags)
+          description_label.configure(text=drill.drill_description)
+
 
         #Left Column, add new drill button and option to search drills database for particular drill(s)
         left_column = ctk.CTkFrame(self, width=600, bg_color="#F2F2F2", fg_color="#F2F2F2")
@@ -80,11 +97,73 @@ class Drills_page(ctk.CTkFrame):
         left_column.grid_rowconfigure(1, weight=1)
         left_column.grid_rowconfigure(2, weight=1)
 
-        new_drill_button = ctk.CTkButton(left_column, corner_radius=10, text="Add New Drill", font=("ADLaM Display", 25), text_color="white", height=50, fg_color="#FF7A53", hover_color="#c7c7c7")
-        new_drill_button.grid(row=0, column=0, padx=10, pady=10, sticky="ns")
-
         #User entry box and label with description
-        drill_search_entry = ctk.CTkEntry(left_column, placeholder_text="Search for Drill(s) using name or tag(s)", placeholder_text_color="Black", justify="center")
+        drill_search_entry = ctk.CTkEntry(left_column, corner_radius=1, placeholder_text="Search for Drill(s) using name or tag(s)", font=("Abadi", 20), placeholder_text_color="Black", justify="center")
         drill_search_entry.grid(row=1, column=0, padx=10, pady=10, sticky="ew")
 
+
+        #Scrollable Frame to display all drills
+        drills_display = ctk.CTkScrollableFrame(left_column, fg_color="#F2F2F2")
+        drills_display.grid(row=2, column=0, sticky="nsew")
+
+        #Function to display drills within drills_display
+        def display_drills():
+            #Clears frame, then displays updated list preventing double-ups
+            for widget in drills_display.winfo_children():
+                widget.destroy()
+
+            #Creates two columns within scrollable frame for buttons to appear side by side
+            columns = 2
+            #Allows for columns to be given a weight and centered
+            for i in range(columns):
+                drills_display.grid_columnconfigure(i, weight=1)
+
+            #index(posistion) is needed to determine rows and columns. Enumerate allows this to happen, adding a counter to the list
+            for index, drill in enumerate(self.drill_manager.drills):
+                #Determines the row and column the drill should be placed based on those already filled
+                row = index // columns
+                column = index % columns
+
+                drill_button = ctk.CTkButton(drills_display, height=50, text=drill.drill_name, font=("Abadi", 20), text_color="black", border_width=2, border_color="#AEAEAE", corner_radius=1, fg_color="#E8E8E8", hover_color="white", command=lambda d=drill: show_drill(d))
+                drill_button.grid(row=row, column=column, pady=10, padx=10, sticky="ew")
+
+        
+        new_drill_button = ctk.CTkButton(left_column, corner_radius=10, text="Add New Drill", font=("ADLaM Display", 25), text_color="white", height=50, fg_color="#FF7A53", hover_color="#c7c7c7", command=display_drills)
+        new_drill_button.grid(row=0, column=0, padx=10, pady=10, sticky="ns")
+
+
         #Right Column, area to display selected drill or new drill
+        right_column = ctk.CTkFrame(self, width=600, bg_color="#F2F2F2", fg_color="#F2F2F2", border_width=2, border_color="#AEAEAE")
+        right_column.grid(row=1, column=1, sticky="nsew")
+        right_column.grid_columnconfigure(0, weight=1)
+        right_column.grid_rowconfigure(0, weight=1)
+        right_column.grid_rowconfigure(1, weight=1)
+        right_column.grid_rowconfigure(2, weight=1)
+        right_column.grid_rowconfigure(3, weight=1)
+        right_column.grid_rowconfigure(4, weight=1)
+
+        #Labels to display all details of selected drill
+        diagram_label = ctk.CTkLabel(right_column, text="Drill Diagram", font=("Abadi", 20), text_color="black")
+        diagram_label.grid(row=0, column=0)
+
+        name_label = ctk.CTkLabel(right_column, text="Drill Name", font=("Abadi", 20), text_color="black")
+        name_label.grid(row=1, column=0)
+
+        tags_label = ctk.CTkLabel(right_column, text="Drill tags", font=("Abadi", 20), text_color="black")
+        tags_label.grid(row=3, column=0)
+
+        description_label = ctk.CTkLabel(right_column, text="Drill Description", font=("Abadi", 20), text_color="black")
+        description_label.grid(row=4, column=0)
+
+        #configure row 2 to have 2 columns
+        row2 = ctk.CTkFrame(right_column, fg_color="#F2F2F2")
+        row2.grid(row=2, column=0, sticky="nsew")
+        row2.grid_columnconfigure(0, weight=1)
+        row2.grid_columnconfigure(1, weight=1)
+        row2.grid_rowconfigure(0, weight=1)
+
+        duration_label = ctk.CTkLabel(row2, text="Drill Duration", font=("Abadi", 20), text_color="black")
+        duration_label.grid(row=0, column=0)
+        age_label = ctk.CTkLabel(row2, text="Drill Age", font=("Abadi", 20), text_color="black")
+        age_label.grid(row=0, column=1)
+

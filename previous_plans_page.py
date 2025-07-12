@@ -15,7 +15,7 @@ class Previous_plans_page(ctk.CTkFrame):
 
         #Navigation bar
         navigation_bar = ctk.CTkFrame(self, height=35, bg_color="#00A29E", fg_color="#00A29E")
-        navigation_bar.grid(row=0, column=0, columnspan=2, sticky="nsew")
+        navigation_bar.grid(row=0, column=0, columnspan=2, sticky="new")
         navigation_bar.grid_columnconfigure(0, weight=1)
         navigation_bar.grid_columnconfigure(1, weight=1)
         navigation_bar.grid_columnconfigure(2, weight=1)
