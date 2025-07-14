@@ -14,12 +14,12 @@ class Drills_page(ctk.CTkFrame):
         #Configure main grid
         self.grid_columnconfigure(0, weight=1) #Left column
         self.grid_columnconfigure(1, weight=1) #Right column
-        self.grid_rowconfigure(0, weight=1)  #Top navigation bar
+        self.grid_rowconfigure(0, weight=0)  #Top navigation bar
         self.grid_rowconfigure(1, weight=1)  #Main page content
 
         #Navigation bar
         navigation_bar = ctk.CTkFrame(self, height=35, bg_color="#00A29E", fg_color="#00A29E")
-        navigation_bar.grid(row=0, column=0, columnspan=2, sticky="nsew")
+        navigation_bar.grid(row=0, column=0, columnspan=2, sticky="ew")
         navigation_bar.grid_columnconfigure(0, weight=1)
         navigation_bar.grid_columnconfigure(1, weight=1)
         navigation_bar.grid_columnconfigure(2, weight=1)
@@ -79,11 +79,11 @@ class Drills_page(ctk.CTkFrame):
         def show_drill(drill):
           #converts diagram to CTk Image object
           diagram = Image.open(drill.drill_diagram)
-          diagram_image = ctk.CTkImage(light_image=diagram, size=(150, 150))
+          diagram_image = ctk.CTkImage(light_image=diagram, size=(200, 200))
           diagram_label.configure(text="", image=diagram_image)
 
           name_label.configure(text=drill.drill_name)
-          duration_label.configure(text=drill.drill_duration)
+          duration_label.configure(text=f"{drill.drill_duration} min   |")
           age_label.configure(text=drill.drill_age)
           tags_label.configure(text=drill.drill_tags)
           description_label.configure(text=drill.drill_description)
@@ -128,12 +128,12 @@ class Drills_page(ctk.CTkFrame):
                 drill_button.grid(row=row, column=column, pady=10, padx=10, sticky="ew")
 
         
-        new_drill_button = ctk.CTkButton(left_column, corner_radius=10, text="Add New Drill", font=("ADLaM Display", 25), text_color="white", height=50, fg_color="#FF7A53", hover_color="#c7c7c7", command=display_drills)
-        new_drill_button.grid(row=0, column=0, padx=10, pady=10, sticky="ns")
+        new_drill_button = ctk.CTkButton(left_column, corner_radius=10, text="Add New Drill", font=("ADLaM Display", 25), text_color="white", height=65, width=100, fg_color="#FF7A53", hover_color="#c7c7c7", command=display_drills)
+        new_drill_button.grid(row=0, column=0, padx=10, pady=10)
 
 
         #Right Column, area to display selected drill or new drill
-        right_column = ctk.CTkFrame(self, width=600, bg_color="#F2F2F2", fg_color="#F2F2F2", border_width=2, border_color="#AEAEAE")
+        right_column = ctk.CTkFrame(self, width=500, bg_color="#F2F2F2", fg_color="#F2F2F2", border_width=2, border_color="#AEAEAE")
         right_column.grid(row=1, column=1, sticky="nsew")
         right_column.grid_columnconfigure(0, weight=1)
         right_column.grid_rowconfigure(0, weight=1)
@@ -146,24 +146,24 @@ class Drills_page(ctk.CTkFrame):
         diagram_label = ctk.CTkLabel(right_column, text="Drill Diagram", font=("Abadi", 20), text_color="black")
         diagram_label.grid(row=0, column=0)
 
-        name_label = ctk.CTkLabel(right_column, text="Drill Name", font=("Abadi", 20), text_color="black")
+        name_label = ctk.CTkLabel(right_column, text="Drill Name", font=("Abadi", 25), text_color="black")
         name_label.grid(row=1, column=0)
 
-        tags_label = ctk.CTkLabel(right_column, text="Drill tags", font=("Abadi", 20), text_color="black")
-        tags_label.grid(row=3, column=0)
+        tags_label = ctk.CTkLabel(right_column, text="Drill tags", font=("Abadi", 18), text_color="black")
+        tags_label.grid(row=3, column=0, sticky="n")
 
-        description_label = ctk.CTkLabel(right_column, text="Drill Description", font=("Abadi", 20), text_color="black")
-        description_label.grid(row=4, column=0)
+        description_label = ctk.CTkLabel(right_column, text="Drill Description", font=("Abadi", 20), text_color="black", wraplength=350, justify="left")
+        description_label.grid(row=4, column=0, sticky="n")
 
         #configure row 2 to have 2 columns
-        row2 = ctk.CTkFrame(right_column, fg_color="#F2F2F2")
-        row2.grid(row=2, column=0, sticky="nsew")
+        row2 = ctk.CTkFrame(right_column, fg_color="#F2F2F2", border_width=2, border_color="#AEAEAE")
+        row2.grid(row=2, column=0, sticky="n")
         row2.grid_columnconfigure(0, weight=1)
         row2.grid_columnconfigure(1, weight=1)
         row2.grid_rowconfigure(0, weight=1)
 
-        duration_label = ctk.CTkLabel(row2, text="Drill Duration", font=("Abadi", 20), text_color="black")
-        duration_label.grid(row=0, column=0)
-        age_label = ctk.CTkLabel(row2, text="Drill Age", font=("Abadi", 20), text_color="black")
-        age_label.grid(row=0, column=1)
+        duration_label = ctk.CTkLabel(row2, text="Drill Duration", font=("Abadi", 15), text_color="black")
+        duration_label.grid(row=0, column=0, sticky="ne", pady=5, padx=5)
+        age_label = ctk.CTkLabel(row2, text="Drill Age", font=("Abadi", 15), text_color="black")
+        age_label.grid(row=0, column=1, padx=5, pady=5, sticky="n")
 
