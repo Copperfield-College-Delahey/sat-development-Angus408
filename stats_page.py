@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from CTkTable import *
 from customtkinter import filedialog
 import pandas as pd
 import tkinter as tk
@@ -10,9 +11,8 @@ class Stats_page(ctk.CTkFrame):
     def __init__(self, parent, controller=None):
         super().__init__(parent)
         self.show_frame = controller
-        
-        #Function to get and display stats
-        def get_stats():
+         #Function to get and analyse stats, displaying analysis in table
+        def analyse_stats():
             #Opens filediolog in same direcotry and allows only xlsx file types
             file_name = filedialog.askopenfilename(initialdir="C:\\Software Development\\SAT Project\\sat-development-Angus408", title="Open an Excel file", filetypes=[("xlsx files", "*.xlsx")])
 
@@ -23,29 +23,73 @@ class Stats_page(ctk.CTkFrame):
                     file_name = r"{}".format(file_name)
                     data_frame = pd.read_excel(file_name)
                 except ValueError:
-                    messagebox.showerror("Error", "File could not be opened. Please try again")
+                    messagebox.showerror("Error", "File could not be opened. Please import an excel file")
                 except FileNotFoundError:
                     messagebox.showerror("Error", "File was not found. Please try again")
-                #Clear previous stats
-                clear_tree()
+                
+                #List of analysis to be added into table. Placed here means old data will be cleared
+                analysis = [["Focuses","Ammount"]]   #Header row
 
-                #Display stats in new treeview
-                stats_display["columns"] = list(data_frame.columns)  #Gets a list of the column headings from the selected file
-                stats_display["show"] = "headings"
-                #Loops through list of columns to assign headers.
-                for column in stats_display["columns"]:
-                    stats_display.heading(column, text=column)
-                    stats_display.column(column, width=5)
+                #Calculates Total Field Goal percentage and appends list with analysis on focus and amount of drills
+                total_FGP = data_frame["Total FGM"].sum()/data_frame["Total FGA"].sum()*100
+                if total_FGP < 30:
+                    analysis.append(["Shooting & Offence", "x3"])
+                elif total_FGP < 50:
+                    analysis.append(["Shooting & Offence", "x2"])
+                else:
+                    analysis.append(["Shooting", "x1"])
 
-                #Converts data into numpy array and then into a list
-                data_frame_rows = data_frame.to_numpy().tolist()
-                #For loop to display stats
-                for row in data_frame_rows:
-                    stats_display.insert("", "end", values=row)
-        
-        #Function to delete any previous trees displaying stats
-        def clear_tree():
-            stats_display.delete(*stats_display.get_children())
+                #Calculates Total Free Throw percentage and appends list with analysis on focus and amount of drills    
+                total_FTP = data_frame["FTM"].sum()/data_frame["FTA"].sum()*100
+                if total_FTP < 50:
+                    analysis.append(["Freethrows", "x2"])
+                else:
+                    analysis.append(["Freethrows", "x1"])
+
+                #Calculates total rebounds and appends list with analysis on focus and amount of drills
+                rebounds = data_frame["O - Boards"].sum()+data_frame["D - Boards"].sum()
+                if rebounds < 10:
+                    analysis.append(["Rebounding & Defence", "x2"])
+                else:
+                    analysis.append(["Rebounnding", "x1"])
+
+                #Calculates total assists and appends list with analysis on focus and amount of drills
+                assists = data_frame["Assists"].sum()
+                if assists < 10:
+                    analysis.append(["Passing & Offence", "x2"])
+                else:
+                    analysis.append(["Offence", "x1"])
+
+                #Calculates total steals and appends list with analysis on focus and amount of drills
+                steals = data_frame["Steals"].sum()
+                if steals < 8:
+                    analysis.append(["Defence", "x2"])
+                else:
+                    analysis.append(["Defence", "x1"])
+
+                #Calculates total blocks and appends list with analysis on focus and amount of drills
+                blocks = data_frame["Blocks"].sum()
+                if blocks < 2:
+                    analysis.append(["Defence", "x1"])
+
+                #Calculates total turnovers and appends list with analysis on focus and amount of drills
+                turnovers = data_frame["Turnovers"].sum()
+                if turnovers > 10:
+                    analysis.append(["Dribbling & Passing", "x2"])
+                else:
+                    analysis.append(["Dribbling & Passing", "x1"])
+                
+                #Calculates total fouls and appends list with analysis on focus and amount of drills
+                fouls = data_frame["Fouls"].sum()
+                if fouls > 10:
+                    analysis.append(["Defence", "x2"])
+                else:
+                    analysis.append(["Defence", "x1"])
+
+                #Table to display analysed stats
+                stats_analysis = CTkTable(master=right_column, row=len(analysis), column=2, values=analysis, corner_radius=1, header_color="#b0b0b0", colors=["#dbdbdb","#dbdbdb"], border_width=1, border_color="#7a7878", font=("Abadi", 20), text_color="Black")
+                stats_analysis.grid(row=0, column=0, pady=15, padx=15, sticky="nsew")
+
 
         #Stats Page content
         #Configure main grid
@@ -90,7 +134,7 @@ class Stats_page(ctk.CTkFrame):
         left_column.grid_rowconfigure(3, weight=0)
         left_column.grid_rowconfigure(4, weight=1)
 
-        analyse_stats_button = ctk.CTkButton(left_column, text="Analyse Statistics", font=("ADLaM Display", 25), text_color="white", fg_color="#FF7A53", hover_color="#c7c7c7", command=get_stats)
+        analyse_stats_button = ctk.CTkButton(left_column, text="Select & Analyse Statistics", font=("ADLaM Display", 25), text_color="white", fg_color="#FF7A53", hover_color="#c7c7c7", command=analyse_stats)
         analyse_stats_button.grid(row=0, column=0, sticky="ew")
 
         instruction_label = ctk.CTkLabel(left_column, text="Enter Team Age", font=("Abadi", 15), text_color="Black")
@@ -104,16 +148,8 @@ class Stats_page(ctk.CTkFrame):
         generate_plan_button.grid(row=4, column=0)        
 
 
-        #Right Column, display imported stats and analysed stats
+        #Right Column, display analysed stats in table
         right_column = ctk.CTkFrame(self, width=600, bg_color="#F2F2F2", fg_color="#F2F2F2")
         right_column.grid(row=1, column=1, sticky="nsew")
         right_column.grid_columnconfigure(0, weight=1)
         right_column.grid_rowconfigure(0, weight=1)
-        right_column.grid_rowconfigure(1, weight=1)
-       
-        #Treeview to display imported stats
-        stats_display = ttk.Treeview(right_column, height=11)
-        stats_display.grid(row=0, column=0, pady=10, padx=10, sticky="n")
-
-        analysed_stats = ctk.CTkLabel(right_column, text="THIS WILL DISPLAY STATS")
-        analysed_stats.grid(row=1, column=0, padx=10, pady=10, sticky="nsew")

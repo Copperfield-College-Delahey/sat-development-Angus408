@@ -75,7 +75,7 @@ class Home_page(ctk.CTkFrame):
         graph_icon = ctk.CTkImage(light_image=Image.open("Images/graph icon.png"), dark_image=Image.open("Images/graph icon.png"), size=(30, 30))
         import_stats_button = ctk.CTkButton(right_column, corner_radius=10, text="Import Statistics     ", text_color="white", height=50, font=("ADLaM Display", 25), image=graph_icon, compound="right", fg_color="#FF7A53", hover_color="#c7c7c7")
         import_stats_button.grid(row=0, column=0, padx=10, pady=10, sticky="ew")
-        import_stats_label = ctk.CTkLabel(right_column, text="Click this button to import statistics from Excel, ensuring your template matches the image to the left", font=("Abadi",15), wraplength=300, justify="left")
+        import_stats_label = ctk.CTkLabel(right_column, text="Click this button to be directed to statistics page where you can import and analyse your statistics from Excel, ensuring your template matches the image to the left", font=("Abadi",15), wraplength=300, justify="left")
         import_stats_label.grid(row=0, column=1, padx=10, pady=10, sticky="w")
         #Configure button to display stats page and load stats from excel
         import_stats_button.configure(command=lambda: self.show_frame("Stats_page"))
