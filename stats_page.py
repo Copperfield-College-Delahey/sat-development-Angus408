@@ -26,6 +26,12 @@ class Stats_page(ctk.CTkFrame):
                     messagebox.showerror("Error", "File could not be opened. Please import an excel file")
                 except FileNotFoundError:
                     messagebox.showerror("Error", "File was not found. Please try again")
+
+                #Validates that all required columns (given by list) are present, displaying an error message if not
+                required_columns = ["Total FGM", "Total FGA", "FTM", "FTA", "O - Boards", "D - Boards", "Assists", "Steals", "Blocks", "Turnovers", "Fouls"]
+                if not all(col in data_frame.columns for col in required_columns):
+                    messagebox.showerror("Error", "Please import statistics which match the template on the home screen, including correct headings")
+
                 
                 #List of analysis to be added into table. Placed here means old data will be cleared
                 analysis = [["Focuses","Ammount"]]   #Header row
@@ -90,6 +96,8 @@ class Stats_page(ctk.CTkFrame):
                 stats_analysis = CTkTable(master=right_column, row=len(analysis), column=2, values=analysis, corner_radius=1, header_color="#b0b0b0", colors=["#dbdbdb","#dbdbdb"], border_width=1, border_color="#7a7878", font=("Abadi", 20), text_color="Black")
                 stats_analysis.grid(row=0, column=0, pady=15, padx=15, sticky="nsew")
 
+                messagebox.showinfo("Success", "Statistics have been Analysed!")
+
 
         #Stats Page content
         #Configure main grid
@@ -125,27 +133,27 @@ class Stats_page(ctk.CTkFrame):
 
 
         #Left Column, contains buttons and entry box
-        left_column = ctk.CTkFrame(self, width=600, bg_color="#F2F2F2", fg_color="#F2F2F2")
+        left_column = ctk.CTkFrame(self, width=650, bg_color="#F2F2F2", fg_color="#F2F2F2")
         left_column.grid(row=1, column=0, sticky="nsew")
         left_column.grid_columnconfigure(0, weight=1)
-        left_column.grid_rowconfigure(0, weight=0)
-        left_column.grid_rowconfigure(1, weight=0)
-        left_column.grid_rowconfigure(2, weight=0)
-        left_column.grid_rowconfigure(3, weight=0)
+        left_column.grid_rowconfigure(0, weight=1)
+        left_column.grid_rowconfigure(1, weight=1)
+        left_column.grid_rowconfigure(2, weight=1)
+        left_column.grid_rowconfigure(3, weight=1)
         left_column.grid_rowconfigure(4, weight=1)
 
-        analyse_stats_button = ctk.CTkButton(left_column, text="Select & Analyse Statistics", font=("ADLaM Display", 25), text_color="white", fg_color="#FF7A53", hover_color="#c7c7c7", command=analyse_stats)
-        analyse_stats_button.grid(row=0, column=0, sticky="ew")
+        analyse_stats_button = ctk.CTkButton(left_column, height=50, corner_radius=10, text="Select & Analyse \nStatistics", font=("ADLaM Display", 25), text_color="white", fg_color="#FF7A53", hover_color="#c7c7c7", command=analyse_stats)
+        analyse_stats_button.grid(row=0, column=0, pady=10, padx=10)
 
-        instruction_label = ctk.CTkLabel(left_column, text="Enter Team Age", font=("Abadi", 15), text_color="Black")
-        instruction_label.grid(row=1, column=0, sticky="ew")
+        instruction_label = ctk.CTkLabel(left_column, text="Enter Team Age", font=("Abadi", 16), text_color="Black")
+        instruction_label.grid(row=1, column=0, padx=10, pady=10, sticky="sew")
         team_age_entry = ctk.CTkEntry(left_column, corner_radius=0)
-        team_age_entry.grid(row=2, column=0, sticky="ew")
-        age_description_label = ctk.CTkLabel(left_column, text="Must be either U8s, U10s, U12s, U14s, U16s, U18s or U20s", font=("Abadi", 13), text_color="Black", wraplength=150, justify="center")
-        age_description_label.grid(row=3, column=0, sticky="ew")
+        team_age_entry.grid(row=2, column=0)
+        age_description_label = ctk.CTkLabel(left_column, text="Must be either U8s, U10s, U12s, U14s, U16s, U18s or U20s", font=("Abadi", 14), text_color="Black", wraplength=150, justify="center")
+        age_description_label.grid(row=3, column=0, sticky="new")
 
-        generate_plan_button = ctk.CTkButton(left_column, text="Generate Training Plan", font=("ADLaM Display", 25), text_color="white", fg_color="#FF7A53", hover_color="#c7c7c7")
-        generate_plan_button.grid(row=4, column=0)        
+        generate_plan_button = ctk.CTkButton(left_column, height=60, corner_radius=10, text="Generate Training \nPlan", font=("ADLaM Display", 25), text_color="white", fg_color="#FF7A53", hover_color="#c7c7c7")
+        generate_plan_button.grid(row=4, column=0, pady=10, padx=10)        
 
 
         #Right Column, display analysed stats in table
