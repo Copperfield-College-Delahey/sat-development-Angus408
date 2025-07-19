@@ -137,23 +137,23 @@ class Stats_page(ctk.CTkFrame):
         left_column.grid(row=1, column=0, sticky="nsew")
         left_column.grid_columnconfigure(0, weight=1)
         left_column.grid_rowconfigure(0, weight=1)
-        left_column.grid_rowconfigure(1, weight=1)
-        left_column.grid_rowconfigure(2, weight=1)
-        left_column.grid_rowconfigure(3, weight=1)
+        left_column.grid_rowconfigure(1, weight=0)
+        left_column.grid_rowconfigure(2, weight=0)
+        left_column.grid_rowconfigure(3, weight=0)
         left_column.grid_rowconfigure(4, weight=1)
 
         analyse_stats_button = ctk.CTkButton(left_column, height=50, corner_radius=10, text="Select & Analyse \nStatistics", font=("ADLaM Display", 25), text_color="white", fg_color="#FF7A53", hover_color="#c7c7c7", command=analyse_stats)
         analyse_stats_button.grid(row=0, column=0, pady=10, padx=10)
 
         instruction_label = ctk.CTkLabel(left_column, text="Enter Team Age", font=("Abadi", 16), text_color="Black")
-        instruction_label.grid(row=1, column=0, padx=10, pady=10, sticky="sew")
+        instruction_label.grid(row=1, column=0, padx=10, pady=2, sticky="s")
         team_age_entry = ctk.CTkEntry(left_column, corner_radius=0)
-        team_age_entry.grid(row=2, column=0)
+        team_age_entry.grid(row=2, column=0, pady=5)
         age_description_label = ctk.CTkLabel(left_column, text="Must be either U8s, U10s, U12s, U14s, U16s, U18s or U20s", font=("Abadi", 14), text_color="Black", wraplength=150, justify="center")
-        age_description_label.grid(row=3, column=0, sticky="new")
+        age_description_label.grid(row=3, column=0, pady=2, sticky="n")
 
         generate_plan_button = ctk.CTkButton(left_column, height=60, corner_radius=10, text="Generate Training \nPlan", font=("ADLaM Display", 25), text_color="white", fg_color="#FF7A53", hover_color="#c7c7c7")
-        generate_plan_button.grid(row=4, column=0, pady=10, padx=10)        
+        generate_plan_button.grid(row=4, column=0, pady=2, padx=10)        
 
 
         #Right Column, display analysed stats in table

@@ -10,7 +10,7 @@ class Previous_plans_page(ctk.CTkFrame):
         #Configure main grid
         self.grid_columnconfigure(0, weight=1) #Left column
         self.grid_columnconfigure(1, weight=1) #Right column
-        self.grid_rowconfigure(0, weight=1)  #Top navigation bar
+        self.grid_rowconfigure(0, weight=0)  #Top navigation bar
         self.grid_rowconfigure(1, weight=1)  #Main page content
 
         #Navigation bar
@@ -77,12 +77,22 @@ class Previous_plans_page(ctk.CTkFrame):
         left_column = ctk.CTkFrame(self, width=600, bg_color="#F2F2F2", fg_color="#F2F2F2")
         left_column.grid(row=1, column=0, sticky="nsew")
         left_column.grid_columnconfigure(0, weight=1)
-        left_column.grid_columnconfigure(1, weight=1)
         left_column.grid_rowconfigure(0, weight=1)
         left_column.grid_rowconfigure(1, weight=1)
-        left_column.grid_rowconfigure(2, weight=1)
-        left_column.grid_rowconfigure(3, weight=1)
 
         #User search entry box
-        plan_search_entry = ctk.CTkEntry(left_column, placeholder_text="Search for Previous Training Plan(s)", placeholder_text_color="Black", justify="center")
+        plan_search_entry = ctk.CTkEntry(left_column, placeholder_text="Search for Previous Training Plan(s)", font=("Abadi", 20), placeholder_text_color="Black", justify="center")
         plan_search_entry.grid(row=0, column=0, columnspan=2, padx=10, pady=10, sticky="ew")
+
+        #Scrollable Frame to display all previous plans
+        plans_display = ctk.CTkScrollableFrame(left_column, fg_color="#F2F2F2")
+        plans_display.grid(row=1, column=0, sticky="nsew")
+
+        #Right Column, displays currently selected previous plan
+        right_column = ctk.CTkFrame(self, bg_color="#F2F2F2", fg_color="#F2F2F2")
+        right_column.grid(row=1, column=1, sticky="nsew")
+        right_column.grid_columnconfigure(0, weight=1)
+        right_column.grid_rowconfigure(0, weight=1)
+        #Temporary Label
+        temp = ctk.CTkLabel(right_column, text="This space will display selected previous plan")
+        temp.grid(row=0, column=0)

@@ -16,7 +16,7 @@ class Current_Plan_page(ctk.CTkFrame):
         left_column = ctk.CTkFrame(self, width=600, bg_color="#F2F2F2", fg_color="#F2F2F2")
         left_column.grid(row=0, column=0, sticky="nsew")
         left_column.grid_columnconfigure(0, weight=1)
-        left_column.grid_rowconfigure(0, weight=1)
+        left_column.grid_rowconfigure(0, weight=0)
         left_column.grid_rowconfigure(1, weight=1)
         left_column.grid_rowconfigure(2, weight=1)
 
@@ -78,3 +78,11 @@ class Current_Plan_page(ctk.CTkFrame):
         edit_button.grid(row=0, column=1, padx=10, pady=10, sticky="ew")
 
         #Right Column, area to display generated training plan
+        right_column = ctk.CTkFrame(self, width=600, bg_color="#F2F2F2", fg_color="#F2F2F2")
+        right_column.grid(row=0, column=1, sticky="nsew")
+        right_column.grid_columnconfigure(0, weight=1)
+        right_column.grid_rowconfigure(0, weight=1)
+
+        #Temporary Label
+        temp = ctk.CTkLabel(right_column, text="This space will display the currently generated plan")
+        temp.grid(row=0, column=0)

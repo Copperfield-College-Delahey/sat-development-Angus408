@@ -10,7 +10,7 @@ class Home_page(ctk.CTkFrame):
         #Configure main grid
         self.grid_columnconfigure(0, weight=1) #Left column
         self.grid_columnconfigure(1, weight=1) #Right column
-        self.grid_rowconfigure(0, weight=1)  #Top navigation bar
+        self.grid_rowconfigure(0, weight=0)  #Top navigation bar
         self.grid_rowconfigure(1, weight=1)  #Main page content
 
         #Navigation bar
