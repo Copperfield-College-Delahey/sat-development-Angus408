@@ -98,10 +98,47 @@ class Drills_page(ctk.CTkFrame):
         left_column.grid_rowconfigure(1, weight=1)
         left_column.grid_rowconfigure(2, weight=1)
 
-        #User entry box to search for particular drill(s)
-        drill_search_entry = ctk.CTkEntry(left_column, corner_radius=1, placeholder_text="Search for Drill(s) using name or tag(s)", font=("Abadi", 20), placeholder_text_color="Black", justify="center")
-        drill_search_entry.grid(row=1, column=0, padx=10, pady=10, sticky="ew")
+        #Function to search through drills based on users entry
+        def search_drills(self):
+            user_drills_search = drill_search_entry.get().strip().lower()
+            relevant_drills = []
+            
+            for drill in self.drill_manager.drills:
+                #Checks for matching name
+                if user_drills_search in drill.drill_name.lower():
+                    relevant_drills.append(drill)
+                #Checks for matching tag, will return true if at least one matches
+                if any(user_drills_search in tag.lower() for tag in drill.drill_tags):
+                    relevant_drills.append(drill)
 
+            #Clears frame, preventing double-ups
+            for widget in drills_display.winfo_children():
+                widget.destroy()
+
+            #Creates two columns within scrollable frame for buttons to appear side by side
+            columns = 2
+            #Allows for columns to be given a weight and centered
+            for i in range(columns):
+                drills_display.grid_columnconfigure(i, weight=1)
+
+            #index(posistion) is needed to determine rows and columns. Enumerate allows this to happen, adding a counter to the list
+            for index, drill in enumerate(relevant_drills):
+                #Determines the row and column the drill should be placed based on those already filled
+                row = index // columns
+                column = index % columns
+
+                drill_button = ctk.CTkButton(drills_display, height=50, text=drill.drill_name, font=("Abadi", 20), text_color="black", border_width=2, border_color="#AEAEAE", corner_radius=1, fg_color="#E8E8E8", hover_color="white", command=lambda d=drill: show_drill(d))
+                drill_button.grid(row=row, column=column, pady=10, padx=10, sticky="ew")
+            
+            #Clears entry box
+            drill_search_entry.delete(0, ctk.END)
+
+
+        #User entry box to search for particular drill(s)
+        drill_search_entry = ctk.CTkEntry(left_column, corner_radius=1, placeholder_text="Search for Drill(s) using name or tag(s) and clicking enter", font=("Abadi", 18), placeholder_text_color="Black", justify="center")
+        drill_search_entry.grid(row=1, column=0, padx=10, pady=10, sticky="ew")
+        #Runs search_drills function once user clicks enter on their keyboard
+        drill_search_entry.bind("<Return>", lambda event: search_drills(self))
 
         #Scrollable Frame to display all drills
         drills_display = ctk.CTkScrollableFrame(left_column, fg_color="#F2F2F2")
@@ -110,7 +147,7 @@ class Drills_page(ctk.CTkFrame):
 
         #Method to display drills within drills_display
         def display_drills(self):
-            #Clears frame, then displays updated list preventing double-ups
+            #Clears frame, preventing double-ups
             for widget in drills_display.winfo_children():
                 widget.destroy()
 

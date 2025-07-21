@@ -4,8 +4,8 @@ class Drill:
     def __init__(self, drill_id, drill_name, drill_tags, drill_age, drill_description, drill_duration, drill_diagram):
         self.drill_id = int(drill_id)  #drill_id can only be an integer
         self.drill_name = drill_name
-        self.drill_tags = drill_tags
-        self.drill_age = drill_age
+        self.drill_tags = drill_tags.split(",") #Turns values into List at each comma
+        self.drill_age = drill_age.split(",")
         self.drill_description = drill_description
         self.drill_duration = int(drill_duration)  #drill_duration can only be an integer
         self.drill_diagram = "drill_diagrams/"+drill_diagram+".png"
