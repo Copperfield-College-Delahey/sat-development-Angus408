@@ -1,12 +1,16 @@
 import customtkinter as ctk
+from CTkTable import *
 from PIL import Image
 import tkinter as tk
 from tkinter import ttk, messagebox
+from drills import Drill_manager
 
 class Current_Plan_page(ctk.CTkFrame):
     def __init__(self, parent, controller=None):
         super().__init__(parent)
         self.show_frame = controller
+        #Load Drill_manager
+        self.drill_manager = Drill_manager()
 
         #Current Plan page content
         #Configure main grid
@@ -14,8 +18,45 @@ class Current_Plan_page(ctk.CTkFrame):
         self.grid_columnconfigure(1, weight=1) #Right column
         self.grid_rowconfigure(1, weight=1)  #Main page content
 
-        def generate_plan(self, team_age):
+        def generate_plan(self, team_age, analysis):
             pass
+            plan_contents = [["Time", "Drill", "Description/POE", "Diagram"]]
+            for row in analysis[1:]: #Skips header row
+                system_drill_search = row[0]  #Focus
+                drill_search_number = row[1]  #Amount
+                #Changes value to just integer eg("x3"-> 3)
+                amount = int(drill_search_number.strip().lower().replace("x", ""))
+                #Will keep track of amount of drills based off drill_search_number 
+                added_drills = 0
+
+                #Freethrows is a drill_name not tag and a special case so kept separate from main for loop
+                if system_drill_search == "Freethrows":
+                    for drill in self.drill_manager.drills:
+                        if drill.drill_name == "Freethrows":
+                            freethrows = drill
+                            break
+
+                for drill in self.drill_manager.drills:
+                    #Checks for matching tag, will return true if at least one matches
+                    if system_drill_search in drill.drill_tags:
+                        drill_details = [drill.drill_duration, drill.drill_name, drill.drill_description, drill.drill_diagram]
+                        #Prevents same drill being added to list again
+                        if drill_details not in plan_contents:
+                            plan_contents.append(drill_details)
+                            added_drills += 1
+                        #Stops getting drills for that focus after specific amount is reached
+                        if added_drills >= amount:
+                            break
+                #Adds freethrows later in the plan. Players are most tired at this stage so best time to practice, as though in a game
+                plan_contents.append(freethrows)
+                #Offences always added last. Coaches practice whatever offences their team have, hence this is not a particular drill
+                offences = [10, "Offences", "Work on your teams set offensive plays. Inlcuding your baseline and sideline out of bounds", "N/A"]
+                plan_contents.append(offences)
+
+
+            #Table to display analysed stats
+            generated_training_plan = CTkTable(master=right_column, row=len(plan_contents), column=2, values=plan_contents, corner_radius=1, header_color="#b0b0b0", colors=["#dbdbdb","#dbdbdb"], border_width=1, border_color="#7a7878", font=("Abadi", 20), text_color="Black")
+            generated_training_plan.grid(row=0, column=0, pady=15, padx=15, sticky="nsew")
 
 
         #Left Column

@@ -11,6 +11,10 @@ class Stats_page(ctk.CTkFrame):
     def __init__(self, parent, controller=None):
         super().__init__(parent)
         self.show_frame = controller
+
+        #Changed to True when stats have been analysed, aiding in validation
+        self.stats_analysed = False
+
          #Function to get and analyse stats, displaying analysis in table
         def analyse_stats():
             #Opens filediolog in same direcotry and allows only xlsx file types
@@ -96,8 +100,25 @@ class Stats_page(ctk.CTkFrame):
                 stats_analysis = CTkTable(master=right_column, row=len(analysis), column=2, values=analysis, corner_radius=1, header_color="#b0b0b0", colors=["#dbdbdb","#dbdbdb"], border_width=1, border_color="#7a7878", font=("Abadi", 20), text_color="Black")
                 stats_analysis.grid(row=0, column=0, pady=15, padx=15, sticky="nsew")
 
-                messagebox.showinfo("Success", "Statistics have been Analysed!")
+                self.stats_analysed = True
 
+                messagebox.showinfo("Success", "Statistics have been Analysed!")
+            self.analysis = analysis 
+
+        #Function to get team age, validate it and pass it to the current_plan_page
+        def get_team_age():
+            if not self.stats_analysed:
+                messagebox.showerror("Error", "Please Analyse statistics before attempting to generate a plan")
+                
+            team_age = team_age_entry.get().strip()
+            age_options = ["U8s", "U10s", "U12s", "U14s", "U16s", "U18s", "U20s"]
+
+            if team_age not in age_options:
+                messagebox.showerror("Error", "Please enter a valid team age, listed below the entry box")
+
+            #Passes team_age to Current_Plan_page
+            controller.show_frame("Current_Plan_page")
+            controller.frames["Current_Plan_page"].generate_plan(team_age, self.analysis)
 
         #Stats Page content
         #Configure main grid
@@ -152,7 +173,7 @@ class Stats_page(ctk.CTkFrame):
         age_description_label = ctk.CTkLabel(left_column, text="Must be either U8s, U10s, U12s, U14s, U16s, U18s or U20s", font=("Abadi", 14), text_color="Black", wraplength=150, justify="center")
         age_description_label.grid(row=3, column=0, pady=2, sticky="n")
 
-        generate_plan_button = ctk.CTkButton(left_column, height=60, corner_radius=10, text="Generate Training \nPlan", font=("ADLaM Display", 25), text_color="white", fg_color="#FF7A53", hover_color="#c7c7c7")
+        generate_plan_button = ctk.CTkButton(left_column, height=60, corner_radius=10, text="Generate Training \nPlan", font=("ADLaM Display", 25), text_color="white", fg_color="#FF7A53", hover_color="#c7c7c7", command=get_team_age)
         generate_plan_button.grid(row=4, column=0, pady=2, padx=10)        
 
 

@@ -1,4 +1,4 @@
-#Creating a class for drills to be based off
+#Class for drills to be based off
 
 class Drill:
     def __init__(self, drill_id, drill_name, drill_tags, drill_age, drill_description, drill_duration, drill_diagram):
@@ -43,5 +43,7 @@ class Drill_manager:
         d28 = Drill("0028", "Rebound & Outlet Drill", "Rebounding, Offence, Passing", "U8s, U10s, U12s, U14s, U16s, U18s, U20s", "Separate players into lines, one on each wing and one on each elbow. Start with two players under the ring ready to get rebounds. The first player on each elbow shoots, the rebounders get the ball, rip, then make an outlet pass to their respective wing. The wing passes to the middle who then repeats the process again. Players follow their pass/shot, joining that line", "5", "Rebound outlet")
         d29 = Drill("0029", "Rebound Relay Drill","Rebounding", "U12s, U14s, U16s, U18s, U20s", "Players line up and take turn throwing the ball up at the backboard and running to the back off the line. Players must jump up rebound the ball and throw it back up before landing on the groung", "3", "Rebound relay")
         d30 = Drill("0030", "Obstacle Course Dribbling", "Dribbling", "U8s, U10s, U12s, U14s, U16s, U18s, U20s", "Set up cones similar to the diagram. Get players to dribble to each cone and perform a dribble move. Change up dribble moves adding complex ones as the drill progresses.", "5", "Obstacle")
+        d31 = Drill("0031", "Freethrows", "Shooting", "U8s, U10s, U12s, U14s, U16s, U18s, U20s", "Players take turn shooting two free throws each. As a total for the team aim for 50% +1. Eg. you have 6 players aim for 7 made shots", "2")
+        d32 = Drill("0032", "Freethrow Knock out", "Shooting", "U8s, U10s, U12s, U14s, U16s, U18s, U20s", "Players line up on the free throw line. In continous version, players shoot and if they miss must make a layup. The player behind shoots immediately after and if the make their shot or layup before the person before them, that person is out.", "5", "")
         
-        self.drills = [d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27, d28, d29, d30]
+        self.drills = [d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27, d28, d29, d30, d31, d32]

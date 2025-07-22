@@ -123,7 +123,7 @@ class Drills_page(ctk.CTkFrame):
                     if drill not in relevant_drills:
                         relevant_drills.append(drill)
 
-            #validates if a drill has been found and place into relevant_drills list
+            #validates if a drill has been found and placed into relevant_drills list
             if not relevant_drills:
                 messagebox.showerror("Error", "No Drill Found")
                 return
