@@ -1,5 +1,7 @@
 import customtkinter as ctk
 from PIL import Image
+import tkinter as tk
+from tkinter import ttk, messagebox
 
 class Current_Plan_page(ctk.CTkFrame):
     def __init__(self, parent, controller=None):
@@ -11,6 +13,10 @@ class Current_Plan_page(ctk.CTkFrame):
         self.grid_columnconfigure(0, weight=1) #Left column
         self.grid_columnconfigure(1, weight=1) #Right column
         self.grid_rowconfigure(1, weight=1)  #Main page content
+
+        def generate_plan(self, team_age):
+            pass
+
 
         #Left Column
         left_column = ctk.CTkFrame(self, width=600, bg_color="#F2F2F2", fg_color="#F2F2F2")

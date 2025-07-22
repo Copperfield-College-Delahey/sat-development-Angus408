@@ -1,5 +1,7 @@
 import customtkinter as ctk
 from PIL import Image
+import tkinter as tk
+from tkinter import ttk, messagebox
 from drills import Drill_manager
 
 class Drills_page(ctk.CTkFrame):
@@ -85,8 +87,8 @@ class Drills_page(ctk.CTkFrame):
             row2.configure(border_width=2, border_color="#AEAEAE")
             name_label.configure(text=drill.drill_name)
             duration_label.configure(text=f"{drill.drill_duration} min   |")
-            age_label.configure(text=drill.drill_age)
-            tags_label.configure(text=drill.drill_tags)
+            age_label.configure(text=",".join(drill.drill_age))
+            tags_label.configure(text=",".join(drill.drill_tags))
             description_label.configure(text=drill.drill_description)
 
 
@@ -102,15 +104,30 @@ class Drills_page(ctk.CTkFrame):
         def search_drills(self):
             user_drills_search = drill_search_entry.get().strip().lower()
             relevant_drills = []
+
+            #Validates whether box is empty
+            if not user_drills_search:
+                self.display_drills()
+            #validates user has entered more than just two letters
+            if len(user_drills_search) < 2:
+                messagebox.showerror("Error", "Please enter more than two characters to search")
             
             for drill in self.drill_manager.drills:
                 #Checks for matching name
                 if user_drills_search in drill.drill_name.lower():
-                    relevant_drills.append(drill)
+                    if drill not in relevant_drills:
+                        relevant_drills.append(drill)
                 #Checks for matching tag, will return true if at least one matches
                 if any(user_drills_search in tag.lower() for tag in drill.drill_tags):
-                    relevant_drills.append(drill)
+                    #Prevents same drill being added to list again
+                    if drill not in relevant_drills:
+                        relevant_drills.append(drill)
 
+            #validates if a drill has been found and place into relevant_drills list
+            if not relevant_drills:
+                messagebox.showerror("Error", "No Drill Found")
+                return
+            
             #Clears frame, preventing double-ups
             for widget in drills_display.winfo_children():
                 widget.destroy()
@@ -129,10 +146,9 @@ class Drills_page(ctk.CTkFrame):
 
                 drill_button = ctk.CTkButton(drills_display, height=50, text=drill.drill_name, font=("Abadi", 20), text_color="black", border_width=2, border_color="#AEAEAE", corner_radius=1, fg_color="#E8E8E8", hover_color="white", command=lambda d=drill: show_drill(d))
                 drill_button.grid(row=row, column=column, pady=10, padx=10, sticky="ew")
-            
+                
             #Clears entry box
             drill_search_entry.delete(0, ctk.END)
-
 
         #User entry box to search for particular drill(s)
         drill_search_entry = ctk.CTkEntry(left_column, corner_radius=1, placeholder_text="Search for Drill(s) using name or tag(s) and clicking enter", font=("Abadi", 18), placeholder_text_color="Black", justify="center")
