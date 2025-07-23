@@ -109,7 +109,7 @@ class Drills_page(ctk.CTkFrame):
             if not user_drills_search:
                 self.display_drills()
             #validates user has entered more than just two letters
-            if len(user_drills_search) < 2:
+            if len(user_drills_search) <= 2:
                 messagebox.showerror("Error", "Please enter more than two characters to search")
             
             for drill in self.drill_manager.drills:
@@ -186,8 +186,43 @@ class Drills_page(ctk.CTkFrame):
         self.display_drills = display_drills.__get__(self)
         self.display_drills()
 
-        
-        new_drill_button = ctk.CTkButton(left_column, corner_radius=10, text="Add New Drill", font=("ADLaM Display", 25), text_color="white", height=65, width=100, fg_color="#FF7A53", hover_color="#c7c7c7")
+        #Function to display new window with entry fields for users to add new drill
+        def add_new_drill():
+            new_drill_popup = ctk.CTkToplevel(fg_color="#F2F2F2")
+            new_drill_popup.title("Add new Drill")
+            new_drill_popup.geometry("600x500")
+            new_drill_popup.grid_columnconfigure(0, weight=1)
+            new_drill_popup.grid_columnconfigure(1, weight=1)
+            new_drill_popup.grid_rowconfigure(0, weight=1)
+            new_drill_popup.grid_rowconfigure(1, weight=1)
+            new_drill_popup.grid_rowconfigure(2, weight=1)
+            new_drill_popup.grid_rowconfigure(3, weight=1)
+
+            #User input fields
+            name_entry = ctk.CTkEntry(new_drill_popup, placeholder_text="Enter Drill Name", font=("Abadi", 14), placeholder_text_color="Black", justify="center")
+            name_entry.grid(row=0, column=0)
+            tags_entry = ctk.CTkEntry(new_drill_popup, placeholder_text="Enter Drill Tag(s)", font=("Abadi", 14), placeholder_text_color="Black", justify="center")
+            tags_entry.grid(row=0, column=1)
+            age_entry = ctk.CTkEntry(new_drill_popup, placeholder_text="Enter Drill Age(s)", font=("Abadi", 14), placeholder_text_color="Black", justify="center")
+            age_entry.grid(row=1, column=0)
+            duration_entry = ctk.CTkEntry(new_drill_popup, placeholder_text="Enter Drill Duration", font=("Abadi", 14), placeholder_text_color="Black", justify="center")
+            duration_entry.grid(row=1, column=1)
+            textbox_label = ctk.CTkLabel(new_drill_popup, text="Enter Drill Description in\n textbox on the right", font=("Abadi", 14), text_color="Black", justify="center")
+            textbox_label.grid(row=2, column=0)
+            description_entry = ctk.CTkTextbox(new_drill_popup, border_width=2, border_color="#AEAEAE")
+            description_entry.grid(row=2, column=1)
+
+            #Button to select diagram
+            picture_icon = ctk.CTkImage(light_image=Image.open("Images/picture icon.png"), dark_image=Image.open("Images/picture icon.png"), size=(15, 15))
+            diagram_button = ctk.CTkButton(new_drill_popup, text="Select Drill Diagram", corner_radius=10, font=("ADLaM Display", 18), text_color="White", fg_color="#FF7A53", hover_color="#c7c7c7", image=picture_icon, compound="right")
+            diagram_button.grid(row=3, column=0)
+
+            #Button to save new drill
+            save_icon = ctk.CTkImage(light_image=Image.open("Images/save icon.png"), dark_image=Image.open("Images/save icon.png"), size=(15, 15))
+            save_button = ctk.CTkButton(new_drill_popup, corner_radius=10, text="Save New Drill", font=("ADLaM Display", 18), text_color="White", hover_color="#c7c7c7", fg_color="green", image=save_icon, compound="right")
+            save_button.grid(row=3, column=1)
+
+        new_drill_button = ctk.CTkButton(left_column, corner_radius=10, text="Add New Drill", font=("ADLaM Display", 25), text_color="white", height=65, width=100, fg_color="#FF7A53", hover_color="#c7c7c7", command=add_new_drill)
         new_drill_button.grid(row=0, column=0, padx=10, pady=10)
 
 

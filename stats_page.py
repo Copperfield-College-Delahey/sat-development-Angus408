@@ -8,10 +8,10 @@ from PIL import Image
 
 
 class Stats_page(ctk.CTkFrame):
-    def __init__(self, parent, controller=None):
+    def __init__(self, parent, controller, pages):
         super().__init__(parent)
         self.show_frame = controller
-
+        self.pages = pages
         #Changed to True when stats have been analysed, aiding in validation
         self.stats_analysed = False
 
@@ -109,16 +109,16 @@ class Stats_page(ctk.CTkFrame):
         def get_team_age():
             if not self.stats_analysed:
                 messagebox.showerror("Error", "Please Analyse statistics before attempting to generate a plan")
-                
+                return #Prevent program continuing
             team_age = team_age_entry.get().strip()
             age_options = ["U8s", "U10s", "U12s", "U14s", "U16s", "U18s", "U20s"]
 
             if team_age not in age_options:
                 messagebox.showerror("Error", "Please enter a valid team age, listed below the entry box")
-
+                return
             #Passes team_age to Current_Plan_page
-            controller.show_frame("Current_Plan_page")
-            controller.frames["Current_Plan_page"].generate_plan(team_age, self.analysis)
+            self.show_frame("Current_Plan_page")
+            self.pages["Current_Plan_page"].generate_plan(team_age, self.analysis)
 
         #Stats Page content
         #Configure main grid

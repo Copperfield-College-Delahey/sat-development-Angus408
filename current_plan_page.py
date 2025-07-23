@@ -18,46 +18,64 @@ class Current_Plan_page(ctk.CTkFrame):
         self.grid_columnconfigure(1, weight=1) #Right column
         self.grid_rowconfigure(1, weight=1)  #Main page content
 
-        def generate_plan(self, team_age, analysis):
-            pass
-            plan_contents = [["Time", "Drill", "Description/POE", "Diagram"]]
-            for row in analysis[1:]: #Skips header row
-                system_drill_search = row[0]  #Focus
-                drill_search_number = row[1]  #Amount
-                #Changes value to just integer eg("x3"-> 3)
-                amount = int(drill_search_number.strip().lower().replace("x", ""))
-                #Will keep track of amount of drills based off drill_search_number 
-                added_drills = 0
+        #Right Column, area to display generated training plan
+        self.right_column = ctk.CTkFrame(self, width=600, bg_color="#F2F2F2", fg_color="#F2F2F2")
+        self.right_column.grid(row=0, column=1, sticky="nsew")
+        self.right_column.grid_propagate(True)
+        self.right_column.grid_columnconfigure(0, weight=1)
+        self.right_column.grid_rowconfigure(0, weight=0)
 
-                #Freethrows is a drill_name not tag and a special case so kept separate from main for loop
-                if system_drill_search == "Freethrows":
-                    for drill in self.drill_manager.drills:
-                        if drill.drill_name == "Freethrows":
-                            freethrows = drill
-                            break
+    def generate_plan(self, team_age, analysis):
+        plan_contents = [["Time", "Drill", "Description/POE", "Diagram"]]
 
+        for row in analysis[1:]: #Skips header row
+            system_drill_search = row[0]  #Focus
+            drill_search_number = row[1]  #Amount
+            #Ensures system can search for either of the tags preventing error due to analysis having "Shooting & Offence"
+            tags = [tag.strip() for tag in system_drill_search.split("&")]
+
+            print(f"\nSearching for drills tagged '{system_drill_search}' for age group '{team_age}' (x{drill_search_number})")
+            #Changes value to just integer eg("x3"-> 3)
+            amount = int(drill_search_number.strip().lower().replace("x", ""))
+            #Will keep track of amount of drills based off drill_search_number 
+            added_drills = 0
+
+            #Freethrows is a drill_name not a tage, so this is a special case kept separate from main loop
+            if system_drill_search == "Freethrows":
                 for drill in self.drill_manager.drills:
-                    #Checks for matching tag, will return true if at least one matches
-                    if system_drill_search in drill.drill_tags:
+                    if drill.drill_name == "Freethrows":
+                        freethrows = [drill.drill_duration, drill.drill_name, drill.drill_description, "N/A"]
+                        print("✅ Found Freethrows drill")
+                        break
+
+            for drill in self.drill_manager.drills:
+                #Checks for matching tag, will return true if at least one matches
+                print(f"Checking drill: {drill.drill_name} (tags: {drill.drill_tags}, age: {drill.drill_age})")
+                if any(tag in drill.drill_tags for tag in tags):
+                    #Checks if drill also matches team_age
+                    if team_age in drill.drill_age:
                         drill_details = [drill.drill_duration, drill.drill_name, drill.drill_description, drill.drill_diagram]
                         #Prevents same drill being added to list again
                         if drill_details not in plan_contents:
+                            print(f"✅ Added drill: {drill.drill_name}")
                             plan_contents.append(drill_details)
                             added_drills += 1
+
                         #Stops getting drills for that focus after specific amount is reached
                         if added_drills >= amount:
                             break
-                #Adds freethrows later in the plan. Players are most tired at this stage so best time to practice, as though in a game
-                plan_contents.append(freethrows)
-                #Offences always added last. Coaches practice whatever offences their team have, hence this is not a particular drill
-                offences = [10, "Offences", "Work on your teams set offensive plays. Inlcuding your baseline and sideline out of bounds", "N/A"]
-                plan_contents.append(offences)
+        #Adds freethrows later in the plan. Players are most tired at this stage so best time to practice, as though in a game
+        plan_contents.append(freethrows)
+        #Offences always added last. Coaches practice whatever offences their team have, hence this is not a particular drill
+        offences = [10, "Offences", "Work on your teams set offensive plays. Inlcuding your baseline and sideline out of bounds", "N/A"]
+        plan_contents.append(offences)
 
 
-            #Table to display analysed stats
-            generated_training_plan = CTkTable(master=right_column, row=len(plan_contents), column=2, values=plan_contents, corner_radius=1, header_color="#b0b0b0", colors=["#dbdbdb","#dbdbdb"], border_width=1, border_color="#7a7878", font=("Abadi", 20), text_color="Black")
-            generated_training_plan.grid(row=0, column=0, pady=15, padx=15, sticky="nsew")
+        #Table to display analysed stats
+        generated_training_plan = CTkTable(master=self.right_column, row=len(plan_contents), column=4, values=plan_contents, corner_radius=1, header_color="#b0b0b0", colors=["#f5f3f2", "#dedcdc"], border_width=1, border_color="#7a7878", font=("Abadi", 10), text_color="Black", wraplength=250, justify="left")
+        generated_training_plan.grid(row=0, column=0, pady=5, padx=5, sticky="nsew")
 
+        messagebox.showinfo("Success", "You have successfully generated a training plan")
 
         #Left Column
         left_column = ctk.CTkFrame(self, width=600, bg_color="#F2F2F2", fg_color="#F2F2F2")
@@ -123,13 +141,3 @@ class Current_Plan_page(ctk.CTkFrame):
         pencil_icon = ctk.CTkImage(light_image=Image.open("Images/pencil icon.png"), dark_image=Image.open("Images/pencil icon.png"), size=(30, 30))
         edit_button = ctk.CTkButton(row_1, corner_radius=10, text="Edit Training \nPlan", font=("ADLaM Display", 25), text_color="white", height=50, fg_color="#FF7A53", hover_color="#c7c7c7", image=pencil_icon, compound="right")
         edit_button.grid(row=0, column=1, padx=10, pady=10, sticky="ew")
-
-        #Right Column, area to display generated training plan
-        right_column = ctk.CTkFrame(self, width=600, bg_color="#F2F2F2", fg_color="#F2F2F2")
-        right_column.grid(row=0, column=1, sticky="nsew")
-        right_column.grid_columnconfigure(0, weight=1)
-        right_column.grid_rowconfigure(0, weight=1)
-
-        #Temporary Label
-        temp = ctk.CTkLabel(right_column, text="This space will display the currently generated plan")
-        temp.grid(row=0, column=0)

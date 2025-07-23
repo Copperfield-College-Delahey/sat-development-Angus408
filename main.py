@@ -24,6 +24,8 @@ container.grid_columnconfigure(0, weight=1) # single column
 def show_frame(page_name):
     pages[page_name].tkraise()
 
+pages = {} #Defining pages here before loading pages
+
 #Load Home_page
 home_page = Home_page(container, controller=show_frame)
 home_page.grid(row=0, column=0, sticky="nsew")
@@ -37,21 +39,21 @@ previous_plans_page = Previous_plans_page(container, controller=show_frame)
 previous_plans_page.grid(row=0, column=0, sticky="nsew")
 
 #Load Stats_page
-stats_page = Stats_page(container, controller=show_frame)
+stats_page = Stats_page(container, controller=show_frame, pages=pages)
 stats_page.grid(row=0, column=0, sticky="nsew")
 
 #Load Curren_Plan_page
 current_plan_page = Current_Plan_page(container, controller=show_frame)
 current_plan_page.grid(row=0, column=0, sticky="nsew")
 
-#Dictionary of pages
-pages = {
+#Updating pages after pages have been loaded
+pages.update({
     "Home_page": home_page,
     "Drills_page": drills_page,
     "Previous_plans_page": previous_plans_page,
     "Stats_page": stats_page,
     "Current_Plan_page": current_plan_page
-    }
+    })
 
 # Initially show Home Page
 show_frame("Home_page")
