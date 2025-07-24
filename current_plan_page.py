@@ -6,25 +6,6 @@ from tkinter import ttk, messagebox
 from drills import Drill_manager
 
 class Current_Plan_page(ctk.CTkFrame):
-    def __init__(self, parent, controller=None):
-        super().__init__(parent)
-        self.show_frame = controller
-        #Load Drill_manager
-        self.drill_manager = Drill_manager()
-
-        #Current Plan page content
-        #Configure main grid
-        self.grid_columnconfigure(0, weight=1) #Left column
-        self.grid_columnconfigure(1, weight=1) #Right column
-        self.grid_rowconfigure(1, weight=1)  #Main page content
-
-        #Right Column, area to display generated training plan
-        self.right_column = ctk.CTkFrame(self, width=600, bg_color="#F2F2F2", fg_color="#F2F2F2")
-        self.right_column.grid(row=0, column=1, sticky="nsew")
-        self.right_column.grid_propagate(True)
-        self.right_column.grid_columnconfigure(0, weight=1)
-        self.right_column.grid_rowconfigure(0, weight=0)
-
     def generate_plan(self, team_age, analysis):
         plan_contents = [["Time", "Drill", "Description/POE", "Diagram"]]
 
@@ -70,15 +51,46 @@ class Current_Plan_page(ctk.CTkFrame):
         offences = [10, "Offences", "Work on your teams set offensive plays. Inlcuding your baseline and sideline out of bounds", "N/A"]
         plan_contents.append(offences)
 
+        total_time = 0
+        #Calulates total time for training plan
+        for row in plan_contents[1:]:
+            total_time += int(row[0])
+
+        if total_time < 90:
+            print("Error")
+
 
         #Table to display analysed stats
-        generated_training_plan = CTkTable(master=self.right_column, row=len(plan_contents), column=4, values=plan_contents, corner_radius=1, header_color="#b0b0b0", colors=["#f5f3f2", "#dedcdc"], border_width=1, border_color="#7a7878", font=("Abadi", 10), text_color="Black", wraplength=250, justify="left")
-        generated_training_plan.grid(row=0, column=0, pady=5, padx=5, sticky="nsew")
+        generated_training_plan = CTkTable(master=self.plan_scrollable_frame, row=len(plan_contents), column=4, values=plan_contents, corner_radius=1, header_color="#b0b0b0", colors=["#f5f3f2", "#dedcdc"], border_width=1, border_color="#7a7878", font=("Abadi", 10), text_color="Black", wraplength=250, justify="left")
+        generated_training_plan.pack(expand=True)
 
         messagebox.showinfo("Success", "You have successfully generated a training plan")
 
+    def __init__(self, parent, controller=None):
+        super().__init__(parent)
+        self.show_frame = controller
+        #Load Drill_manager
+        self.drill_manager = Drill_manager()
+
+        #Current Plan page content
+        #Configure main grid
+        self.grid_columnconfigure(0, weight=1) #Left column
+        self.grid_columnconfigure(1, weight=1) #Right column
+        self.grid_rowconfigure(1, weight=1)  #Main page content
+
+        #Right Column, area to display generated training plan
+        self.right_column = ctk.CTkFrame(self, bg_color="#F2F2F2", fg_color="#F2F2F2")
+        self.right_column.grid(row=0, column=1, sticky="nsew")
+        self.right_column.grid_propagate(True)
+        self.right_column.grid_columnconfigure(0, weight=1)
+        self.right_column.grid_rowconfigure(0, weight=1)
+
+        #Scrollable frame to display generated plan
+        self.plan_scrollable_frame = ctk.CTkScrollableFrame(self.right_column, fg_color="#F2F2F2")
+        self.plan_scrollable_frame.grid(row=0, column=0, sticky="nsew")
+
         #Left Column
-        left_column = ctk.CTkFrame(self, width=600, bg_color="#F2F2F2", fg_color="#F2F2F2")
+        left_column = ctk.CTkFrame(self, bg_color="#F2F2F2", fg_color="#F2F2F2")
         left_column.grid(row=0, column=0, sticky="nsew")
         left_column.grid_columnconfigure(0, weight=1)
         left_column.grid_rowconfigure(0, weight=0)
@@ -136,8 +148,8 @@ class Current_Plan_page(ctk.CTkFrame):
 
         print_icon = ctk.CTkImage(light_image=Image.open("Images/print icon.png"), dark_image=Image.open("Images/print icon.png"), size=(30, 30))
         print_button = ctk.CTkButton(row_1, corner_radius=10, text="Print Training \nPlan", font=("ADLaM Display", 25), text_color="white", height=50, fg_color="#FF7A53", hover_color="#c7c7c7", image=print_icon, compound="right")
-        print_button.grid(row=0, column=0, padx=10, pady=10, sticky="ew")
+        print_button.grid(row=0, column=0, padx=10, pady=10)
 
         pencil_icon = ctk.CTkImage(light_image=Image.open("Images/pencil icon.png"), dark_image=Image.open("Images/pencil icon.png"), size=(30, 30))
         edit_button = ctk.CTkButton(row_1, corner_radius=10, text="Edit Training \nPlan", font=("ADLaM Display", 25), text_color="white", height=50, fg_color="#FF7A53", hover_color="#c7c7c7", image=pencil_icon, compound="right")
-        edit_button.grid(row=0, column=1, padx=10, pady=10, sticky="ew")
+        edit_button.grid(row=0, column=1, padx=10, pady=10)

@@ -186,11 +186,18 @@ class Drills_page(ctk.CTkFrame):
         self.display_drills = display_drills.__get__(self)
         self.display_drills()
 
+        #Function runs oncce user clicks save on window, adding drill to system.
+        def save_new_drill():
+            pass
+            new_name = name_entry.get()
+
         #Function to display new window with entry fields for users to add new drill
         def add_new_drill():
             new_drill_popup = ctk.CTkToplevel(fg_color="#F2F2F2")
             new_drill_popup.title("Add new Drill")
             new_drill_popup.geometry("600x500")
+            new_drill_popup.transient(parent)  #Ensures the window opens up and remains above parent
+            new_drill_popup.grab_set()  #Prevents users from interacting with other windows
             new_drill_popup.grid_columnconfigure(0, weight=1)
             new_drill_popup.grid_columnconfigure(1, weight=1)
             new_drill_popup.grid_rowconfigure(0, weight=1)
@@ -219,7 +226,7 @@ class Drills_page(ctk.CTkFrame):
 
             #Button to save new drill
             save_icon = ctk.CTkImage(light_image=Image.open("Images/save icon.png"), dark_image=Image.open("Images/save icon.png"), size=(15, 15))
-            save_button = ctk.CTkButton(new_drill_popup, corner_radius=10, text="Save New Drill", font=("ADLaM Display", 18), text_color="White", hover_color="#c7c7c7", fg_color="green", image=save_icon, compound="right")
+            save_button = ctk.CTkButton(new_drill_popup, corner_radius=10, text="Save New Drill", font=("ADLaM Display", 18), text_color="White", hover_color="#c7c7c7", fg_color="green", image=save_icon, compound="right", command=save_new_drill)
             save_button.grid(row=3, column=1)
 
         new_drill_button = ctk.CTkButton(left_column, corner_radius=10, text="Add New Drill", font=("ADLaM Display", 25), text_color="white", height=65, width=100, fg_color="#FF7A53", hover_color="#c7c7c7", command=add_new_drill)
