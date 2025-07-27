@@ -3,14 +3,16 @@ from PIL import Image
 import tkinter as tk
 from tkinter import ttk, messagebox
 from drills import Drill_manager
+from drills import Drill
 
 class Drills_page(ctk.CTkFrame):
     def __init__(self, parent, controller=None):
         super().__init__(parent)
         self.show_frame = controller
-        
         #Load Drill_manager
         self.drill_manager = Drill_manager()
+        #Load Drill class
+        self.drill = Drill()
 
         #Drills Page content
         #Configure main grid
@@ -186,13 +188,27 @@ class Drills_page(ctk.CTkFrame):
         self.display_drills = display_drills.__get__(self)
         self.display_drills()
 
-        #Function runs oncce user clicks save on window, adding drill to system.
-        def save_new_drill():
-            pass
-            new_name = name_entry.get()
-
         #Function to display new window with entry fields for users to add new drill
         def add_new_drill():
+            #Function runs oncce user clicks save on window, adding drill to system. Nested here to access all entry widgets.
+            def save_new_drill():
+                new_drill_name = name_entry.get().strip().title()
+                new_drill_tags = tags_entry.get().strip().capitalize()
+                new_drill_age = age_entry.get().strip()
+                new_drill_duration = duration_entry.get().strip()
+                new_drill_description = description_entry.get("1.0", "end").strip.capitalize()
+                new_drill_diagram = "temp_diagram"
+
+                #Generating new id, done with assistance of Chat GPT
+                last_drill_id = int(self.drill_manager.drills[-1].drill_id) #Gets the id of the last drill within the list of drills and coverts to integer
+                new_drill_id = str(last_drill_id + 1).zfill(4)  #Adds one to the value and converts back to a string, with 4 digits eg:"0004"
+
+                new_drill = Drill(new_drill_id, new_drill_name, new_drill_tags, new_drill_age, new_drill_description, new_drill_duration, new_drill_diagram)
+                self.drill_manager.drills.append(new_drill) 
+                self.display_drills() #Updates drills display
+                messagebox.showinfo("Success", f"{new_drill_name} has been added!")
+                new_drill_popup.destroy()
+            
             new_drill_popup = ctk.CTkToplevel(fg_color="#F2F2F2")
             new_drill_popup.title("Add new Drill")
             new_drill_popup.geometry("600x500")
