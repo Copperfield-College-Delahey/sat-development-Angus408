@@ -11,8 +11,6 @@ class Drills_page(ctk.CTkFrame):
         self.show_frame = controller
         #Load Drill_manager
         self.drill_manager = Drill_manager()
-        #Load Drill class
-        self.drill = Drill()
 
         #Drills Page content
         #Configure main grid

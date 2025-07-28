@@ -87,9 +87,23 @@ class Current_Plan_page(ctk.CTkFrame):
         offences = [10, "Offences", "Work on your teams set offensive plays. Inlcuding your baseline and sideline out of bounds", "N/A"]
         plan_contents.append(offences)
 
-        #Table to display analysed stats
-        generated_training_plan = CTkTable(master=self.plan_scrollable_frame, row=len(plan_contents), column=4, values=plan_contents, corner_radius=1, header_color="#b0b0b0", colors=["#f5f3f2", "#dedcdc"], border_width=1, border_color="#7a7878", font=("Abadi", 10), text_color="Black", wraplength=250, justify="left")
-        generated_training_plan.pack(expand=True, fill="both")
+        for widget in self.generated_training_plan.winfo_children():
+            widget.destroy()
+
+        for i, drill in enumerate(plan_contents):
+            duration_label = ctk.CTkLabel(self.generated_training_plan, text=drill[0])
+            duration_label.grid(row=i, column=0, padx=10, pady=5, sticky="w")
+            name_label = ctk.CTkLabel(self.generated_training_plan, text=drill[1])
+            name_label.grid(row=i, column=1, padx=10, pady=5, sticky="w")
+            description_label = ctk.CTkLabel(self.generated_training_plan, wraplength=250, justify="left", text=drill[2])
+            description_label.grid(row=i, column=2, padx=10, pady=5, sticky="w")
+            #Returns true if object is a CTkImage
+            if isinstance(drill[3], ctk.CTkImage):
+                diagram_label = ctk.CTkLabel(self.generated_training_plan, image=drill[3], text="")
+            else:
+                diagram_label = ctk.CTkLabel(self.generated_training_plan, text=drill[3])
+            diagram_label.grid(row=i, column=3, padx=10, pady=5, sticky="w")
+
 
         messagebox.showinfo("Success", "You have successfully generated a training plan")
 
@@ -113,8 +127,8 @@ class Current_Plan_page(ctk.CTkFrame):
         self.right_column.grid_rowconfigure(0, weight=0)
 
         #Scrollable frame to display generated plan
-        self.plan_scrollable_frame = ctk.CTkScrollableFrame(self.right_column, height=650, width=600, fg_color="#F2F2F2")
-        self.plan_scrollable_frame.grid(row=0, column=0, sticky="nsew")
+        self.generated_training_plan = ctk.CTkScrollableFrame(self.right_column, height=650, width=600, fg_color="#F2F2F2")
+        self.generated_training_plan.grid(row=0, column=0, sticky="nsew")
 
         #Left Column
         left_column = ctk.CTkFrame(self, bg_color="#F2F2F2", fg_color="#F2F2F2")
