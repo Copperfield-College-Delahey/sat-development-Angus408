@@ -70,7 +70,7 @@ class Current_Plan_page(ctk.CTkFrame):
                         #Prevents same drill being added to list again
                         if drill_key not in added_drill_keys:
                             if drill.drill_diagram != "N/A":   #Turns each drill diagram into a CtkImage allowing it to be placed into the table
-                                diagram = ctk.CTkImage(light_image=Image.open(drill.drill_diagram), dark_image=Image.open(drill.drill_diagram), size=(50, 50))
+                                diagram = ctk.CTkImage(light_image=Image.open(drill.drill_diagram), dark_image=Image.open(drill.drill_diagram), size=(150, 150))
                             else:
                                 diagram = "N/A"  #For Drills without a diagram ie. freethrows, they remain as N/A
                             drill_details = [drill.drill_duration, drill.drill_name, drill.drill_description, diagram]
@@ -89,21 +89,39 @@ class Current_Plan_page(ctk.CTkFrame):
 
         for widget in self.generated_training_plan.winfo_children():
             widget.destroy()
-
+        #Creates a frame and label within it for each drill in training plam
         for i, drill in enumerate(plan_contents):
-            duration_label = ctk.CTkLabel(self.generated_training_plan, text=drill[0])
-            duration_label.grid(row=i, column=0, padx=10, pady=5, sticky="w")
-            name_label = ctk.CTkLabel(self.generated_training_plan, text=drill[1])
-            name_label.grid(row=i, column=1, padx=10, pady=5, sticky="w")
-            description_label = ctk.CTkLabel(self.generated_training_plan, wraplength=250, justify="left", text=drill[2])
-            description_label.grid(row=i, column=2, padx=10, pady=5, sticky="w")
+            duration_frame = ctk.CTkFrame(self.generated_training_plan, corner_radius=0, border_width=3, border_color="black", fg_color="white")
+            duration_frame.grid(row=i, column=0, pady=5, padx=3, sticky="nsew")
+            duration_label = ctk.CTkLabel(duration_frame, text=drill[0], font=("Abadi", 14), justify="center")
+            duration_label.pack(expand=True, fill="both")
+            name_frame = ctk.CTkFrame(self.generated_training_plan, corner_radius=0,border_width=3, border_color="black", fg_color="white")
+            name_frame.grid(row=i, column=1, pady=5, padx=3, sticky="nsew")
+            name_label = ctk.CTkLabel(name_frame, text=drill[1], font=("Abadi", 15), justify="center")
+            name_label.pack(expand=True, fill="both")
+            description_frame = ctk.CTkFrame(self.generated_training_plan, corner_radius=0, border_width=3, border_color="black", fg_color="white")
+            description_frame.grid(row=i, column=2, pady=5, padx=3, sticky="nsew")
+            description_label = ctk.CTkLabel(description_frame, wraplength=250, justify="left", text=drill[2], font=("Abadi", 12))
+            description_label.pack(expand=True, fill="both")
             #Returns true if object is a CTkImage
             if isinstance(drill[3], ctk.CTkImage):
-                diagram_label = ctk.CTkLabel(self.generated_training_plan, image=drill[3], text="")
+                diagram_frame = ctk.CTkFrame(self.generated_training_plan, corner_radius=0, border_width=3, border_color="black", fg_color="white")
+                diagram_label = ctk.CTkLabel(diagram_frame, image=drill[3], text="", justify="center")
             else:
-                diagram_label = ctk.CTkLabel(self.generated_training_plan, text=drill[3])
-            diagram_label.grid(row=i, column=3, padx=10, pady=5, sticky="w")
-
+                diagram_frame =  ctk.CTkFrame(self.generated_training_plan, corner_radius=0, border_width=3, border_color="black", fg_color="white")
+                diagram_label = ctk.CTkLabel(diagram_frame, text=drill[3], justify="center")
+            diagram_frame.grid(row=i, column=3, pady=5, padx=3, sticky="nsew")
+            diagram_label.pack(expand=True, fill="both")
+            #Changing style of header row 
+            if i == 0:
+                duration_frame.configure(fg_color="#e0e0e0")
+                duration_label.configure(font=("Abadi", 16, "bold"))
+                name_frame.configure(fg_color="#e0e0e0")
+                name_label.configure(font=("Abadi", 16, "bold"))
+                description_frame.configure(fg_color="#e0e0e0")
+                description_label.configure(font=("Abadi", 16, "bold"))
+                diagram_frame.configure(fg_color="#e0e0e0")
+                diagram_label.configure(font=("Abadi", 16, "bold"))
 
         messagebox.showinfo("Success", "You have successfully generated a training plan")
 
@@ -127,8 +145,8 @@ class Current_Plan_page(ctk.CTkFrame):
         self.right_column.grid_rowconfigure(0, weight=0)
 
         #Scrollable frame to display generated plan
-        self.generated_training_plan = ctk.CTkScrollableFrame(self.right_column, height=650, width=600, fg_color="#F2F2F2")
-        self.generated_training_plan.grid(row=0, column=0, sticky="nsew")
+        self.generated_training_plan = ctk.CTkScrollableFrame(self.right_column, height=650, width=600, fg_color="white")
+        self.generated_training_plan.grid(row=0, column=0, padx=5, sticky="nsew")
 
         #Left Column
         left_column = ctk.CTkFrame(self, bg_color="#F2F2F2", fg_color="#F2F2F2")
@@ -176,10 +194,6 @@ class Current_Plan_page(ctk.CTkFrame):
         previous_plans_button.configure(command=lambda: self.show_frame("Previous_plans_page"))
         file_icon_button.configure(command=lambda: self.show_frame("Previous_plans_page"))
 
-        save_icon = ctk.CTkImage(light_image=Image.open("Images/save icon.png"), dark_image=Image.open("Images/save icon.png"), size=(30, 30))
-        save_button = ctk.CTkButton(left_column, corner_radius=10, text="Download and Save", font=("ADLaM Display", 25), text_color="white", height=50, fg_color="#FF7A53", hover_color="#c7c7c7", image=save_icon, compound="right")
-        save_button.grid(row=2, column=0, padx=10, pady=10, sticky="")
-
         #Row 1 - Left Column
         row_1 = ctk.CTkFrame(left_column, bg_color="#F2F2F2", fg_color="#F2F2F2")
         row_1.grid(row=1, column=0, sticky="ew")
@@ -187,10 +201,13 @@ class Current_Plan_page(ctk.CTkFrame):
         row_1.grid_columnconfigure(1, weight=1)
         row_1.grid_rowconfigure(0, weight=1)
 
-        print_icon = ctk.CTkImage(light_image=Image.open("Images/print icon.png"), dark_image=Image.open("Images/print icon.png"), size=(30, 30))
-        print_button = ctk.CTkButton(row_1, corner_radius=10, text="Print Training \nPlan", font=("ADLaM Display", 25), text_color="white", height=50, fg_color="#FF7A53", hover_color="#c7c7c7", image=print_icon, compound="right")
-        print_button.grid(row=0, column=0, padx=10, pady=10)
+        save_icon = ctk.CTkImage(light_image=Image.open("Images/save icon.png"), dark_image=Image.open("Images/save icon.png"), size=(30, 30))
+        save_button = ctk.CTkButton(row_1, corner_radius=10, text="Download and \nSave", font=("ADLaM Display", 25), text_color="white", height=50, fg_color="#FF7A53", hover_color="#c7c7c7", image=save_icon, compound="right")
+        save_button.grid(row=0, column=0, padx=10, pady=10, sticky="")
 
         pencil_icon = ctk.CTkImage(light_image=Image.open("Images/pencil icon.png"), dark_image=Image.open("Images/pencil icon.png"), size=(30, 30))
         edit_button = ctk.CTkButton(row_1, corner_radius=10, text="Edit Training \nPlan", font=("ADLaM Display", 25), text_color="white", height=50, fg_color="#FF7A53", hover_color="#c7c7c7", image=pencil_icon, compound="right")
         edit_button.grid(row=0, column=1, padx=10, pady=10)
+
+        instruction_label = ctk.CTkLabel(left_column, text="edit instrutions.....\n Once you are happy with your generated training plan, click the download and save button to conver the plan to a printable pdf file.", font=("Abadi", 16), text_color="black", wraplength=400, justify="center")
+        instruction_label.grid(row=2, column=0, pady=5, padx=10, sticky="nsew")
