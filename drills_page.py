@@ -188,13 +188,48 @@ class Drills_page(ctk.CTkFrame):
 
         #Function to display new window with entry fields for users to add new drill
         def add_new_drill():
-            #Function runs oncce user clicks save on window, adding drill to system. Nested here to access all entry widgets.
+            #Function runs once user clicks save on window, adding drill to system. Nested here to access all entry widgets.
             def save_new_drill():
                 new_drill_name = name_entry.get().strip().title()
+                #Validation confirms user has entered a drill name, and that the drill name doesn't already exist
+                if not new_drill_name:
+                    messagebox.showerror("Error", "Please enter a Drill Name")
+                    return
+                if new_drill_name in self.drill_manager.drills:
+                    messagebox.showerror("Error", "A drill with this name already exists")
+                    return
                 new_drill_tags = tags_entry.get().strip().capitalize()
+                #Validates user has entered a drill tag or tags
+                if not new_drill_tags:
+                    messagebox.showerror("Error", "Please enter a tag or tags")
+                    return
+                valid_ages = ["U8s", "U10s", "U12s", "U14s", "U16s", "U18s", "U20s"] #List of valid ages to refer to in validation
                 new_drill_age = age_entry.get().strip()
-                new_drill_duration = duration_entry.get().strip()
+                #Validates user has entered a drill age, and that it is an acceptable correct age
+                if not new_drill_age:
+                    messagebox.showerror("Error", "Please enter a Drill Name")
+                    return
+                new_drill_age_list = [age.strip().upper() for age in new_drill_age.split(",")]
+                if new_drill_age_list not in valid_ages:
+                    messagebox.showerror("Error", "Please enter a valid drill age or ages seperated by commas.\nEtiher or multiple of U8s, U10s, U12s, U14s, U16s, U18s, U20s")
+                    return
+                #Validates drill duration isn't blank and is between 1 and 40
+                try: 
+                    new_drill_duration = int(duration_entry.get().strip())
+                    if not (1 <= new_drill_duration <= 40):
+                        messagebox.showerror("Error", "Please enter a drill duration between 1 and 40")
+                        return
+                except ValueError:
+                    messagebox.showerror("Error", "Drill duration must be a number")
+                
                 new_drill_description = description_entry.get("1.0", "end").strip.capitalize()
+                if not new_drill_description:
+                    messagebox.showerror("Error", "Please enter a drill description")
+                    return
+                if len(new_drill_description) < 10:
+                    messagebox.showerror("Error", "Please enter a longer description")
+                    return
+                
                 new_drill_diagram = "temp_diagram"
 
                 #Generating new id, done with assistance of Chat GPT
