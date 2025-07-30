@@ -126,9 +126,6 @@ class Current_Plan_page(ctk.CTkFrame):
             #------------------------------------End of ChatGPT written code---------------------------------------------------------------------------------------
 
 
-
-
-
     #Function to create and then display a training plan based on the analysis and team age passed from the stats_page.
     def generate_plan(self, team_age, analysis):
         plan_contents = [["Time", "Drill", "Description/POE", "Diagram"]]
@@ -253,6 +250,34 @@ class Current_Plan_page(ctk.CTkFrame):
 
     def __init__(self, parent, controller=None):
         super().__init__(parent)
+        
+        def edit_plan():
+            #Creates a popup window for users to edit in
+            edit_plan_popup = ctk.CTkToplevel(fg_color="#F2F2F2")
+            edit_plan_popup.title("Edit generated training plan")
+            edit_plan_popup.geometry("650x600")
+            edit_plan_popup.transient(parent)  #Ensures the window opens up and remains above parent
+            edit_plan_popup.grab_set()  #Prevents users from interacting with other windows
+            edit_plan_popup.grid_columnconfigure(0, weight=1)
+            edit_plan_popup.grid_columnconfigure(1, weight=1)
+            edit_plan_popup.grid_columnconfigure(2, weight=1)
+            edit_plan_popup.grid_rowconfigure(0, weight=1)
+            #Dropdown menue with drill names for user to view and selected desired drill to add to plan
+            drill_names = [drill.drill_name for drill in self.drill_manager.drills]
+            drills_dropdown = ctk.CTkOptionMenu(edit_plan_popup, values=drill_names)
+            drills_dropdown.grid(row=1, column=2)
+
+            add_button = ctk.CTkButton(edit_plan_popup, text="Add drill to Training Plan")
+            add_button.grid(row=2, column=2)
+
+            #Loops through _____ skipping the header row
+            for i, drill in enumerate(self.current_plan[1:], start=1):
+                drill_label = ctk.CTkLabel(edit_plan_popup, text=f"{drill[1]} - {drill[0]} mins")
+                drill_label.grid(row=i, column=0, pady=5, padx=5)
+
+                delete_button = ctk.CTkButton(edit_plan_popup, text="Delete")
+                delete_button.grid(row=i, column=1, paady=5, padx=5)
+
         self.show_frame = controller
         #Load Drill_manager
         self.drill_manager = Drill_manager()
@@ -332,7 +357,7 @@ class Current_Plan_page(ctk.CTkFrame):
         save_button.grid(row=0, column=0, padx=10, pady=10, sticky="")
 
         pencil_icon = ctk.CTkImage(light_image=Image.open("Images/pencil icon.png"), dark_image=Image.open("Images/pencil icon.png"), size=(30, 30))
-        edit_button = ctk.CTkButton(row_1, corner_radius=10, text="Edit Training \nPlan", font=("ADLaM Display", 25), text_color="white", height=50, fg_color="#FF7A53", hover_color="#c7c7c7", image=pencil_icon, compound="right")
+        edit_button = ctk.CTkButton(row_1, corner_radius=10, text="Edit Training \nPlan", font=("ADLaM Display", 25), text_color="white", height=50, fg_color="#FF7A53", hover_color="#c7c7c7", image=pencil_icon, compound="right", command=edit_plan)
         edit_button.grid(row=0, column=1, padx=10, pady=10)
 
         instruction_label = ctk.CTkLabel(left_column, text="edit instrutions.....\n Once you are happy with your generated training plan, click the download and save button to conver the plan to a printable pdf file.", font=("Abadi", 16), text_color="black", wraplength=400, justify="center")
