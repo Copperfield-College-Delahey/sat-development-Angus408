@@ -111,7 +111,7 @@ class Drills_page(ctk.CTkFrame):
             #validates user has entered more than just two letters
             if len(user_drills_search) <= 2:
                 messagebox.showerror("Error", "Please enter more than two characters to search")
-            
+                self.display_drills()
             for drill in self.drill_manager.drills:
                 #Checks for matching name
                 if user_drills_search in drill.drill_name.lower():

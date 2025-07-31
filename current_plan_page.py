@@ -360,5 +360,5 @@ class Current_Plan_page(ctk.CTkFrame):
         edit_button = ctk.CTkButton(row_1, corner_radius=10, text="Edit Training \nPlan", font=("ADLaM Display", 25), text_color="white", height=50, fg_color="#FF7A53", hover_color="#c7c7c7", image=pencil_icon, compound="right", command=edit_plan)
         edit_button.grid(row=0, column=1, padx=10, pady=10)
 
-        instruction_label = ctk.CTkLabel(left_column, text="edit instrutions.....\n Once you are happy with your generated training plan, click the download and save button to conver the plan to a printable pdf file.", font=("Abadi", 16), text_color="black", wraplength=400, justify="center")
-        instruction_label.grid(row=2, column=0, pady=5, padx=10, sticky="nsew")
+        instruction_label = ctk.CTkLabel(left_column, text="Want to remove or add a drill to the generated plan? Click the Edit button and click the delete button to remove certain drills, or the add button to include any drills.\n Happy with your generated training plan? Click the Download and Save button to convert the plan to a printable pdf file. This file will automatically be saved to both your device and this software.", font=("Abadi", 16), text_color="black", wraplength=300, justify="center")
+        instruction_label.grid(row=2, column=0, pady=5, padx=10, sticky="new")
