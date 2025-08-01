@@ -1,0 +1,12 @@
+<drills>
+    <drill>
+        <drill_id></drill_id>
+        <drill_name></drill_name>
+        <drill_tags></drill_tags>
+        <drill_age></drill_age>
+        <drill_description></drill_description>
+        <drill_duration></drill_duration>
+        <drill_diagram></drill_diagram>
+    </drill>
+
+</drills>
