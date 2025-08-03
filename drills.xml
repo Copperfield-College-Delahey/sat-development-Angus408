@@ -1,12 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
 <drills>
     <drill>
-        <drill_id></drill_id>
-        <drill_name></drill_name>
-        <drill_tags></drill_tags>
-        <drill_age></drill_age>
-        <drill_description></drill_description>
-        <drill_duration></drill_duration>
-        <drill_diagram></drill_diagram>
+        <drill_id>0001</drill_id>
+        <drill_name>Cincinnati Drill</drill_name>
+        <drill_tags>Shooting, Passing</drill_tags>
+        <drill_age>U8s, U10s, U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>1 passes to 2 who pivots and passes to 3 cutting to the basket for a shot or layup. 3 keeps going to the opposite outlet position, 2 rebounds, 1 replaces 2 and 2 outlets to 3. Encourage strong passing, cutting and finishing</drill_description>
+        <drill_duration>5</drill_duration>
+        <drill_diagram>Cincinnati</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0002</drill_id>
+        <drill_name>Star Drill</drill_name>
+        <drill_tags>Passing</drill_tags>
+        <drill_age>U8s, U10s, U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>One player is in each corner of the half court, or closer depending on team age/ability. Ball starts under the ring and is passed diagonally. The passer follows their pass moving to that spot. The drill continues with the ball being passed in the shape of a star, the final reciever completes a layup. Add jumpshots to extend drill</drill_description>
+        <drill_duration>5</drill_duration>
+        <drill_diagram>Star</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0003</drill_id>
+        <drill_name>3-Man Weave</drill_name>
+        <drill_tags>Passing, Offence</drill_tags>
+        <drill_age>U8s, U10s, U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>Create 3 lines on the baseline with the ball starting in the middle. The first player passes ahead before running behind that person, the reciever then passes to the other player and runs behind them. The general rule, whoever you pass to you run behind. Once the ball reaches half court the last person runs back to play defence creating a 2v1</drill_description>
+        <drill_duration>6</drill_duration>
+        <drill_diagram>3-Man weave</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0004</drill_id>
+        <drill_name>1v1 Chase Drill</drill_name>
+        <drill_tags>Offence, Defence</drill_tags>
+        <drill_age>U8s, U10s, U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>Offence starts above the wing whilst defence starts on the free throw line extended. Coach or teamate passes the ball to offence initiating the 1v1. Both players must run around their respective cone with defence aiming to get a stop and offence aiming to score</drill_description>
+        <drill_duration>5</drill_duration>
+        <drill_diagram>1 v 1 Chase</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0005</drill_id>
+        <drill_name>1v1 Lanes defence</drill_name>
+        <drill_tags>Offence, Defence</drill_tags>
+        <drill_age>U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>In this drill offence should be going 50% whilst defence goes 100%. Defence must keep their arms out using their length and chest to slide and force offence to make a crossover. Offence should only cross when they reach the sideline or split line. Once at halfcourt the drill can be extended to a 1v1 to the opposite ring. This drill can be done in either a half-court or full-court</drill_description>
+        <drill_duration>10</drill_duration>
+        <drill_diagram>1 v 1 Lanes</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0006</drill_id>
+        <drill_name>5-Spot Shooting</drill_name>
+        <drill_tags>Shooting</drill_tags>
+        <drill_age>U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>Players must reach a certain number of made shots from each of the 5 spots on the court. To make it competitive split players into teams, making the winner the first to finish</drill_description>
+        <drill_duration>5</drill_duration>
+        <drill_diagram>5-Spot shooting</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0007</drill_id>
+        <drill_name>7-Up Shooting</drill_name>
+        <drill_tags>Shooting</drill_tags>
+        <drill_age>U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>Pair players up with one ball. One player is assigned the rebounder the other the shooter. Set a timer for 5 minutes, the shooter shoots from 3pt line, make or miss they move to mid range and shoot, make or miss they complete a layup. This process continues until the player reaches 7 points. 1 point for a layup, 2 for a mid-range and 3 for a 3. After 7 the player moves to the next spot, aiming to complete all 5 before time ends</drill_description>
+        <drill_duration>10</drill_duration>
+        <drill_diagram>7-Up</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0008</drill_id>
+        <drill_name>L-Cut Shooting Drill</drill_name>
+        <drill_tags>Shooting, Offence</drill_tags>
+        <drill_age>U10s, U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>Create two lines, one with balls one without. You decide where those two lines will be, an example is in the diagram. A player cuts in before returing out to the free-throw line, completing an L-cut. They recieve a pass and then either make a layup or shoot. Set a time and add a target, eg. 5 min, 10 layups, 10 free-throws, 5 3s</drill_description>
+        <drill_duration>10</drill_duration>
+        <drill_diagram>L-cut</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0009</drill_id>
+        <drill_name>Zig-Zag Dribbling</drill_name>
+        <drill_tags>Dribbling, Offence</drill_tags>
+        <drill_age>U8s, U10s, U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>This drill can be performed on a half-court or full-court. Players dribble with speed to each cone, performing a crossover the propelling themselves to the next cone. Ensure player practice different crossovers throughout the drill. Finish with a layup at the ring</drill_description>
+        <drill_duration>6</drill_duration>
+        <drill_diagram>Zig-zag</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0010</drill_id>
+        <drill_name>Dribble Knockout</drill_name>
+        <drill_tags>Dribbling</drill_tags>
+        <drill_age>U8s, U10s, U12s, U14s, U16s, U18s</drill_age>
+        <drill_description>Create an imaginary boundary, I usually start with the free-throw line. Each player has a ball and must continue dribbling throughout the entire drill. Whilst dribbling players attempt to hit others ball out of the boundary whilst maintaining controll of their own ball. As more players get out shrink the boundary to make it harder</drill_description>
+        <drill_duration>5</drill_duration>
+        <drill_diagram>Dribble knockout</drill_diagram>
+    </drill>
+    
+    <drill>
+        <drill_id>0011</drill_id>
+        <drill_name>Square Passing</drill_name>
+        <drill_tags>Passing</drill_tags>
+        <drill_age>U8s, U10s, U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>Create 3 lines on the baseline and 1 line on the sideline. The ball is passed to the adjacent line, the passer then sprints to the opposite spot, the ball continues around the half-court until it reaches the start, forming a square</drill_description>
+        <drill_duration>3</drill_duration>
+        <drill_diagram>Square</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0012</drill_id>
+        <drill_name>2v1 Drill</drill_name>
+        <drill_tags>Offence, Defence</drill_tags>
+        <drill_age>U10s, U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>Create 3 lines along the baseline. The middle line is defence whilst the outside lines are offence. All players must run around their cone before playing a 2v1. Offence should identify scoring and passing lanes. Add restrictions to challenge players</drill_description>
+        <drill_duration>10</drill_duration>
+        <drill_diagram>2 v 1</drill_diagram>
+    </drill>
+    
+    <drill>
+        <drill_id>0013</drill_id>
+        <drill_name>Shell Drill</drill_name>
+        <drill_tags>Defence, Offence</drill_tags>
+        <drill_age>U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>Split players into two teams. Defence evenly spaces out on the baseline, offence on the three point line. The ball is passed to each player on the basline, each passer then sprints diagonally opposite to their player on the 3pt line. The ball is passed around the 3 pt line, with defence moving to appropriate spots. At the last player the game becomes live</drill_description>
+        <drill_duration>15</drill_duration>
+        <drill_diagram>Shell</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0014</drill_id>
+        <drill_name>2v2 Drill</drill_name>
+        <drill_tags>Offence, Defence</drill_tags>
+        <drill_age>U10s, U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>Defence starts below the 3 pt line opposite their player. The ball is passed to the wing initiating the 2v2 with the passer encourage to set a screen, ghost screen or dribble handoff, add rules to enforce concepts</drill_description>
+        <drill_duration>10</drill_duration>
+        <drill_diagram>2 v 2</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0015</drill_id>
+        <drill_name>Pop-Outs</drill_name>
+        <drill_tags>Shooting</drill_tags>
+        <drill_age>U10s, U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>Create two lines, with one ball each, on the lane lines. The first player runs around the key recieveing the ball and completing a layup, the passer then does the same. This process is done untill 20 layups, 15 block shots, 10 elbow shots and 5 3s have been made</drill_description>
+        <drill_duration>7</drill_duration>
+        <drill_diagram>Pop-outs</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0016</drill_id>
+        <drill_name>Team Rebounding Drill</drill_name>
+        <drill_tags>Rebounding, Offence, Defence</drill_tags>
+        <drill_age>U10s, U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>Split players into two teams, defence starts in the key, offence on the 3pt line. Coach shoots the ball and players sprint to box-out opponents and rebound the ball. The extend drill have offence aim to score if they get an o-board</drill_description>
+        <drill_duration>10</drill_duration>
+        <drill_diagram>Team rebounding</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0017</drill_id>
+        <drill_name>Competitive Rebounding Drill</drill_name>
+        <drill_tags>Rebounding, Offence, Defence</drill_tags>
+        <drill_age>U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>Split players into two teams. Defence lines up in the key whilst offence space around the 3pt line. Coach passes to one of the offensive players who shoot. Defence sprints to box-out whislt offence attempt to get an o-board and score.</drill_description>
+        <drill_duration>10</drill_duration>
+        <drill_diagram>Competitive rebounding</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0018</drill_id>
+        <drill_name>1v1 Rebounding</drill_name>
+        <drill_tags>Rebounding</drill_tags>
+        <drill_age>U10s, U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>Assign one player, or coach as shooter. Two players are positioned in the key, they need to box each other out attemtping to get the rebound. Keep scores to ensure effort, 1 pt for a successful rebound.</drill_description>
+        <drill_duration>5</drill_duration>
+        <drill_diagram>1 v 1 Rebound</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0019</drill_id>
+        <drill_name>4v4 Rebounding</drill_name>
+        <drill_tags>Rebounding, Offence, Defence</drill_tags>
+        <drill_age>U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>One offensive player is placed on each block and elbow, defence is placed within the key, standing next to their player. Defence must rotate to each offensive player until coach shoots, when the must box-out and obtain the rebound. Encourage teams to put shots back up attempting to score</drill_description>
+        <drill_duration>10</drill_duration>
+        <drill_diagram>4 v 4 Rebound</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0020</drill_id>
+        <drill_name>Russian Layups</drill_name>
+        <drill_tags>Passing, Shooting, Offence</drill_tags>
+        <drill_age>U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>Create one line on each baseline. This drill can be performed with coaches on the elbows or players rotating on the elbows. The elbow passer passes to the player running ahead, after recieving they pass to the other person on the elbow before recieving the ball back for a layup. Set a time and encourage speed</drill_description>
+        <drill_duration>6</drill_duration>
+        <drill_diagram>Russian</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0021</drill_id>
+        <drill_name>Driving Contact Drill</drill_name>
+        <drill_tags>Offence, Shooting</drill_tags>
+        <drill_age>U8s, U10s, U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>Players drive towards the basket taking contact giving by coach, using a bump pad, and finishing. Expand the drill by adding spots to complete dribble moves and encouraging shots</drill_description>
+        <drill_duration>10</drill_duration>
+        <drill_diagram>driving contact</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0022</drill_id>
+        <drill_name>Collision Dribbling</drill_name>
+        <drill_tags>Dribbling, Offence</drill_tags>
+        <drill_age>U10s, U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>Create a line in each of the four corners, each player should have a basketball. On coaches whistle or go the first four players dribble with speed, when the meet in the middle the perform a crossover and continue to the diagonally opposite corner. Expand by changing type and amount of crossovers</drill_description>
+        <drill_duration>5</drill_duration>
+        <drill_diagram>Collision</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0023</drill_id>
+        <drill_name>Number Game</drill_name>
+        <drill_tags>Offence, Defence</drill_tags>
+        <drill_age>U8s, U10s, U12s, U14s</drill_age>
+        <drill_description>Split players into two teams and line them on the baseline, assigning each a different number. When coach call out a players number they sprint to get the ball and score, the opposition number then has to try and stop them. Extend the drill by making it a 2v2, 3v3 etc.</drill_description>
+        <drill_duration>10</drill_duration>
+        <drill_diagram>Number</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0024</drill_id>
+        <drill_name>3-Spot-3-min Shooting Drill</drill_name>
+        <drill_tags>Shooting</drill_tags>
+        <drill_age>U8s, U10s, U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>Create 3 lines, one on each elbow and one in the middle of the free throw line. Set a timer for 3 minutes. Players shoot from the designated spots rebounding their own ball back to the line they just shot at. Don't forget to rotate lines. Set a resonable target based on skill of team</drill_description>
+        <drill_duration>4</drill_duration>
+        <drill_diagram>3-spot</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0025</drill_id>
+        <drill_name>Defensive Footwork Drill</drill_name>
+        <drill_tags>Defence</drill_tags>
+        <drill_age>"U8s, U10s, U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>Set cones up as per diagram. Players sprint to the first cone closing-out with a high hand. They then backpedal to the next cone before defensivly slideing to the next. Players then sprint to closeout at the next cone before sliding again. Add more cones or more footwork, eg. crossover step to expand the drill.</drill_description>
+        <drill_duration>5</drill_duration>
+        <drill_diagram>footwork</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0026</drill_id>
+        <drill_name>Quick Decision Finishing Drill</drill_name>
+        <drill_tags>Offence, Defence, Passing, Shooting</drill_tags>
+        <drill_age>U10s, U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>Two offensive players begin on the block with one defence in the middle. Coach passes to either of the offensive players who need to quickly decide whether they shoot or pass. However there is a limit to only one pass. Therefore players must decide in a split seconde what the best option would be. No dribbling or steps are allowed</drill_description>
+        <drill_duration>5</drill_duration>
+        <drill_diagram>Quick decision</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0027</drill_id>
+        <drill_name>Finishing off Dribble Drill</drill_name>
+        <drill_tags>Dribbling, Shooting, Offence</drill_tags>
+        <drill_age>U10s, U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>Set up cones in a diamond shape with one cone just above the charge-circle. Players perform a different dribble move at each cone, before finsing at the ring. As coach you add or change dribble move ie. spin move, step-through, euro, etc. Extend the drill by making players shoot instead of making a layup</drill_description>
+        <drill_duration>10</drill_duration>
+        <drill_diagram>Finishing off dribble</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0028</drill_id>
+        <drill_name>Rebound and Outlet Drill</drill_name>
+        <drill_tags>Rebounding, Offence, Passing</drill_tags>
+        <drill_age>U8s, U10s, U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>Separate players into lines, one on each wing and one on each elbow. Start with two players under the ring ready to get rebounds. The first player on each elbow shoots, the rebounders get the ball, rip, then make an outlet pass to their respective wing. The wing passes to the middle who then repeats the process again. Players follow their pass/shot, joining that line</drill_description>
+        <drill_duration>5</drill_duration>
+        <drill_diagram>Rebound outlet</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0029</drill_id>
+        <drill_name>Rebound Relay Drill</drill_name>
+        <drill_tags>Rebounding</drill_tags>
+        <drill_age>U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>Players line up and take turn throwing the ball up at the backboard and running to the back off the line. Players must jump up rebound the ball and throw it back up before landing on the ground</drill_description>
+        <drill_duration>3</drill_duration>
+        <drill_diagram>Rebound relay</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0030</drill_id>
+        <drill_name>Obstacle Course Dribbling</drill_name>
+        <drill_tags>Dribbling</drill_tags>
+        <drill_age>U8s, U10s, U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>Set up cones similar to the diagram. Get players to dribble to each cone and perform a dribble move. Change up dribble moves adding complex ones as the drill progresses.</drill_description>
+        <drill_duration>5</drill_duration>
+        <drill_diagram>Obstacle</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0031</drill_id>
+        <drill_name>Freethrows</drill_name>
+        <drill_tags>Shooting</drill_tags>
+        <drill_age>U8s, U10s, U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>Players take turn shooting two free throws each. As a total for the team aim for 50% +1. Eg. you have 6 players aim for 7 made shots</drill_description>
+        <drill_duration>2</drill_duration>
+        <drill_diagram>Freethrows</drill_diagram>
+    </drill>
+
+    <drill>
+        <drill_id>0032</drill_id>
+        <drill_name>Freethrow Knock out</drill_name>
+        <drill_tags>Shooting</drill_tags>
+        <drill_age>"U8s, U10s, U12s, U14s, U16s, U18s, U20s</drill_age>
+        <drill_description>Players line up on the free throw line. In continous version, players shoot and if they miss must make a layup. The player behind shoots immediately after and if the make their shot or layup before the person before them, that person is out.</drill_description>
+        <drill_duration>5</drill_duration>
+        <drill_diagram>Freethrow knockout</drill_diagram>
     </drill>
 
 </drills>

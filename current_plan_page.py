@@ -283,7 +283,9 @@ class Current_Plan_page(ctk.CTkFrame):
         self.show_frame = controller
         #Load Drill_manager
         self.drill_manager = Drill_manager()
-
+        #Call function to load drills from xml file
+        self.drill_manager.load_from_xml("drills.xml")
+        
         #Current Plan page content
         #Configure main grid
         self.grid_columnconfigure(0, weight=1) #Left column

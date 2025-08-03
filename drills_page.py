@@ -1,7 +1,9 @@
 import customtkinter as ctk
 from PIL import Image
+import os
+import shutil
 import tkinter as tk
-from tkinter import ttk, messagebox
+from tkinter import ttk, filedialog, messagebox
 from drills import Drill_manager
 from drills import Drill
 
@@ -11,6 +13,8 @@ class Drills_page(ctk.CTkFrame):
         self.show_frame = controller
         #Load Drill_manager
         self.drill_manager = Drill_manager()
+        #Call function to load drills from xml file
+        self.drill_manager.load_from_xml("drills.xml")
 
         #Drills Page content
         #Configure main grid
@@ -188,6 +192,19 @@ class Drills_page(ctk.CTkFrame):
 
         #Function to display new window with entry fields for users to add new drill
         def add_new_drill():
+            #Function allows user to select a png image to set as their added drills diagram
+            def select_diagram():
+                self.file_path = filedialog.askopenfilename(title="Select Drill Diagram", filetypes=[("Image Files", "*.png")])
+
+                if self.file_path:
+                    try:
+                        print("Diagram:", self.file_path)
+                        diagram_button.configure(text=os.path.basename(self.file_path))
+                    except Exception as e:
+                        messagebox.showerror("Error", "Failed to load diagram. Please ensure you select a png file")
+                else:
+                    messagebox.showerror("Error", "No diagram selected")
+
             #Function runs once user clicks save on window, adding drill to system. Nested here to access all entry widgets.
             def save_new_drill():
                 new_drill_name = name_entry.get().strip().title()
@@ -209,8 +226,8 @@ class Drills_page(ctk.CTkFrame):
                 if not new_drill_age:
                     messagebox.showerror("Error", "Please enter a Drill Name")
                     return
-                new_drill_age_list = [age.strip().upper() for age in new_drill_age.split(",")]
-                if new_drill_age_list not in valid_ages:
+                new_drill_age_list = [age.strip().capitalize() for age in new_drill_age.split(",")]
+                if not all(age in valid_ages for age in new_drill_age_list):
                     messagebox.showerror("Error", "Please enter a valid drill age or ages seperated by commas.\nEtiher or multiple of U8s, U10s, U12s, U14s, U16s, U18s, U20s")
                     return
                 #Validates drill duration isn't blank and is between 1 and 40
@@ -222,22 +239,35 @@ class Drills_page(ctk.CTkFrame):
                 except ValueError:
                     messagebox.showerror("Error", "Drill duration must be a number")
                 
-                new_drill_description = description_entry.get("1.0", "end").strip.capitalize()
-                if not new_drill_description:
-                    messagebox.showerror("Error", "Please enter a drill description")
-                    return
-                if len(new_drill_description) < 10:
-                    messagebox.showerror("Error", "Please enter a longer description")
+                new_drill_description = description_entry.get("1.0", "end-1c").strip()
+                print(f"'{new_drill_description}'", len(new_drill_description))
+                #validates drill description has been entered and is between 10 and 90 words (around 50 and 630 character)
+                if len(new_drill_description) < 50 or len(new_drill_description) > 630:
+                    messagebox.showerror("Error", "Please enter a valid description betweem 10 and 90 words")
                     return
                 
-                new_drill_diagram = "temp_diagram"
-
+                #Saves the selected drill diagram into the drill_diagrams folder
+                #Done with assitance of ChatGPT
+                if not hasattr(self, "file_path") or not self.file_path:
+                    messagebox.showerror("Error", "Please select a drill diagram")
+                    return
+                try:
+                    os.makedirs("drill_diagrams", exist_ok=True)
+                    filename = os.path.basename(self.file_path).replace(" ", "_").lower()
+                    target_path = os.path.join("drill_diagrams", filename)
+                    shutil.copy(self.file_path, target_path)
+                    new_drill_diagram = os.path.splitext(filename)[0]
+                except Exception as e:
+                    messagebox.showerror("Error", f"Failed to copy image: {e}")
+                    return
+                
                 #Generating new id, done with assistance of Chat GPT
                 last_drill_id = int(self.drill_manager.drills[-1].drill_id) #Gets the id of the last drill within the list of drills and coverts to integer
                 new_drill_id = str(last_drill_id + 1).zfill(4)  #Adds one to the value and converts back to a string, with 4 digits eg:"0004"
 
                 new_drill = Drill(new_drill_id, new_drill_name, new_drill_tags, new_drill_age, new_drill_description, new_drill_duration, new_drill_diagram)
-                self.drill_manager.drills.append(new_drill) 
+                self.drill_manager.drills.append(new_drill)
+                self.drill_manager.save_to_xml("drills.xml") #Permanently saves new drill to xml file
                 self.display_drills() #Updates drills display
                 messagebox.showinfo("Success", f"{new_drill_name} has been added!")
                 new_drill_popup.destroy()
@@ -270,7 +300,7 @@ class Drills_page(ctk.CTkFrame):
 
             #Button to select diagram
             picture_icon = ctk.CTkImage(light_image=Image.open("Images/picture icon.png"), dark_image=Image.open("Images/picture icon.png"), size=(15, 15))
-            diagram_button = ctk.CTkButton(new_drill_popup, text="Select Drill Diagram", corner_radius=10, font=("ADLaM Display", 18), text_color="White", fg_color="#FF7A53", hover_color="#c7c7c7", image=picture_icon, compound="right")
+            diagram_button = ctk.CTkButton(new_drill_popup, text="Select Drill Diagram", corner_radius=10, font=("ADLaM Display", 18), text_color="White", fg_color="#FF7A53", hover_color="#c7c7c7", image=picture_icon, compound="right", command=select_diagram)
             diagram_button.grid(row=3, column=0)
 
             #Button to save new drill
