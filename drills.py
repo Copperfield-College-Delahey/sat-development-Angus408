@@ -10,7 +10,11 @@ class Drill:
         self.drill_age = [age.strip() for age in drill_age.split(",")]
         self.drill_description = drill_description
         self.drill_duration = int(drill_duration)  #drill_duration can only be an integer
-        self.drill_diagram = "drill_diagrams/"+drill_diagram+".png"
+        # Only prepend if not already present
+        if not drill_diagram.startswith("drill_diagrams/"):
+            self.drill_diagram = "drill_diagrams/" + drill_diagram.lstrip("/")
+        else:
+            self.drill_diagram = drill_diagram
 
 #Class to manage all drills and related functions
 class Drill_manager:
@@ -18,15 +22,14 @@ class Drill_manager:
         self.drills = []
     #Function to save drills onto xml file
     def save_to_xml(self, filepath):
-        pass
         root = ET.Element("drills")
         for drill in self.drills:
             drill_elem = ET.SubElement(root, "drill")
 
             ET.SubElement(drill_elem, "drill_id").text = str(drill.drill_id)
             ET.SubElement(drill_elem, "drill_name").text = drill.drill_name
-            ET.SubElement(drill_elem, "drill_tags").text = ",".join(drill.drill_tags) #Returns list to just be string
-            ET.SubElement(drill_elem, "drill_age").text = drill.drill_age
+            ET.SubElement(drill_elem, "drill_tags").text = ",".join(drill.drill_tags) #Converts back to string
+            ET.SubElement(drill_elem, "drill_age").text = ",".join(drill.drill_age) #Converts back to string
             ET.SubElement(drill_elem, "drill_description").text = drill.drill_description
             ET.SubElement(drill_elem, "drill_duration").text = str(drill.drill_duration)
             ET.SubElement(drill_elem, "drill_diagram").text = drill.drill_diagram
@@ -53,6 +56,7 @@ class Drill_manager:
                 self.drills.append(drill)
         except FileNotFoundError:
             messagebox.showerror("Error", "Drills xml file could not be found")
+
 
 
 

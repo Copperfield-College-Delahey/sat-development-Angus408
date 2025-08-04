@@ -103,10 +103,10 @@ class Home_page(ctk.CTkFrame):
         stats_diagram_label = ctk.CTkLabel(left_column, text="", image=stats_diagram, bg_color="#F2F2F2", fg_color="#F2F2F2")
         stats_diagram_label.grid(row=0, column=0, padx=3, pady=3, sticky="nsew")
 
-        down_arrow = ctk.CTkImage(light_image=Image.open("Images/down arrow.png"), dark_image=Image.open("Images/down arrow.png"), size=(50,50))
+        down_arrow = ctk.CTkImage(light_image=Image.open("Images/down arrow.png"), dark_image=Image.open("Images/down arrow.png"), size=(45,45))
         down_arrow_label = ctk.CTkLabel(left_column, text="", image=down_arrow, bg_color="#F2F2F2", fg_color="#F2F2F2")
         down_arrow_label.grid(row=1, column=0, padx=3, pady=3, sticky="nsew")
 
-        plan_diagram = ctk.CTkImage(light_image=Image.open("Images/Plan Diagram.png"), dark_image=Image.open("Images/Plan Diagram.png"), size=(360,350))
+        plan_diagram = ctk.CTkImage(light_image=Image.open("Images/Plan Diagram.png"), dark_image=Image.open("Images/Plan Diagram.png"), size=(370,350))
         plan_diagram_label = ctk.CTkLabel(left_column, text="", image=plan_diagram, bg_color="#F2F2F2", fg_color="#F2F2F2")
         plan_diagram_label.grid(row=2, column=0, padx=3, pady=3, sticky="nsew")

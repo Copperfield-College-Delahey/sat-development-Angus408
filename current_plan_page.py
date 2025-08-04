@@ -154,7 +154,6 @@ class Current_Plan_page(ctk.CTkFrame):
                         if drill_key not in added_drill_keys:
                             freethrows = [drill.drill_duration, drill.drill_name, drill.drill_description, "N/A"]
                             added_drill_keys.add(drill_key)
-                            print("✅ Found Freethrows drill")
                             break
 
             for drill in self.drill_manager.drills:

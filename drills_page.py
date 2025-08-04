@@ -212,7 +212,7 @@ class Drills_page(ctk.CTkFrame):
                 if not new_drill_name:
                     messagebox.showerror("Error", "Please enter a Drill Name")
                     return
-                if new_drill_name in self.drill_manager.drills:
+                if any(drill.drill_name == new_drill_name for drill in self.drill_manager.drills):
                     messagebox.showerror("Error", "A drill with this name already exists")
                     return
                 new_drill_tags = tags_entry.get().strip().capitalize()
@@ -224,7 +224,7 @@ class Drills_page(ctk.CTkFrame):
                 new_drill_age = age_entry.get().strip()
                 #Validates user has entered a drill age, and that it is an acceptable correct age
                 if not new_drill_age:
-                    messagebox.showerror("Error", "Please enter a Drill Name")
+                    messagebox.showerror("Error", "Please enter a Drill Age")
                     return
                 new_drill_age_list = [age.strip().capitalize() for age in new_drill_age.split(",")]
                 if not all(age in valid_ages for age in new_drill_age_list):
@@ -243,7 +243,7 @@ class Drills_page(ctk.CTkFrame):
                 print(f"'{new_drill_description}'", len(new_drill_description))
                 #validates drill description has been entered and is between 10 and 90 words (around 50 and 630 character)
                 if len(new_drill_description) < 50 or len(new_drill_description) > 630:
-                    messagebox.showerror("Error", "Please enter a valid description betweem 10 and 90 words")
+                    messagebox.showerror("Error", "Please enter a valid description betweem 50 and 630 characters")
                     return
                 
                 #Saves the selected drill diagram into the drill_diagrams folder
