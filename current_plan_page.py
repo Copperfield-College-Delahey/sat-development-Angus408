@@ -125,7 +125,7 @@ class Current_Plan_page(ctk.CTkFrame):
         except Exception as e:
             messagebox.showerror("Error", f"Failed to save PDF:\n{e}")
 
-            #------------------------------------End of ChatGPT written code---------------------------------------------------------------------------------------
+        #------------------------------------End of ChatGPT written code-------------------------------------------
 
 
     #Function to create and then display a training plan based on the analysis and team age passed from the stats_page.
@@ -253,6 +253,12 @@ class Current_Plan_page(ctk.CTkFrame):
         super().__init__(parent)
         
         def edit_plan():
+            def save_plan():
+                pass
+            def delete_drill():
+                pass
+            def add_drill():
+                pass
             #Creates a popup window for users to edit in
             edit_plan_popup = ctk.CTkToplevel(fg_color="#F2F2F2")
             edit_plan_popup.title("Edit generated training plan")
@@ -266,17 +272,22 @@ class Current_Plan_page(ctk.CTkFrame):
             #Dropdown menue with drill names for user to view and selected desired drill to add to plan
             drill_names = [drill.drill_name for drill in self.drill_manager.drills]
             drills_dropdown = ctk.CTkOptionMenu(edit_plan_popup, values=drill_names)
-            drills_dropdown.grid(row=1, column=2)
+            drills_dropdown.grid(row=0, column=2)
 
-            add_button = ctk.CTkButton(edit_plan_popup, text="Add drill to Training Plan")
-            add_button.grid(row=2, column=2)
+            popup_description_label = ctk.CTkLabel(edit_plan_popup, text="")
+            popup_description_label.grid(row=1, column=0, columnspan=3)
 
+            add_button = ctk.CTkButton(edit_plan_popup, text="Add drill to Training Plan", command=add_drill)
+            add_button.grid(row=0, column=1)
+
+            save_button = ctk.CTkButton(edit_plan_popup, text="Save Edited plan", command=save_plan)
+            save_button.grid(row=0, column=0)
             #Loops through _____ skipping the header row
-            for i, drill in enumerate(self.current_plan[1:], start=1):
+            for i, drill in enumerate(self.current_plan[1:], start=2):
                 drill_label = ctk.CTkLabel(edit_plan_popup, text=f"{drill[1]} - {drill[0]} mins")
                 drill_label.grid(row=i, column=0, pady=5, padx=5)
 
-                delete_button = ctk.CTkButton(edit_plan_popup, text="Delete")
+                delete_button = ctk.CTkButton(edit_plan_popup, text="Delete", command=delete_drill)
                 delete_button.grid(row=i, column=1, paady=5, padx=5)
 
         self.show_frame = controller

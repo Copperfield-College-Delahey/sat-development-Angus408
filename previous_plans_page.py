@@ -1,10 +1,43 @@
 import customtkinter as ctk
+import xml.etree.ElementTree as ET
+from tkinter import messagebox
 from PIL import Image
 
 class Previous_plans_page(ctk.CTkFrame):
     def __init__(self, parent, controller=None):
         super().__init__(parent)
         self.show_frame = controller
+
+        #Function to save plans onto xml file
+        def save_plan_to_xml(self, filepath):
+            try:
+                root = ET.Element("plans")
+                plan_elem = ET.SubElement(root, "plan")
+
+                for row in self.current_plan[1:]:
+                    ET.SubElement(plan_elem, "drill_name").text = row[1]
+                    ET.SubElement(plan_elem, "drill_duration").text = str(row[0])
+                
+                tree = ET.ElementTree(root)
+                tree.write(filepath, encoding="utf-8", xml_declaration=True)
+                messagebox.showinfo("Success", "Training plan has been successfully saved")
+            except Exception as e:
+                messagebox.showerror("Error", "Failed to save to previous_plans XML file")
+
+        #Function to load plans from xml file onto software
+        def load_plan_from_xml(self, filepath):
+            try:
+                tree = ET.parse(filepath)
+                root = tree.getroot()
+                #Loops through each drill element 
+                for plan_elem in root.findall("plan"):
+                    drill_name = plan_elem.find("drill_name").text
+                    drill_duration = plan_elem.find("drill_duration").text
+    
+            except FileNotFoundError:
+                messagebox.showerror("Error", "Plans xml file could not be found")
+        def display_previous_plans():
+            pass
         
         #Previous plans Page content
         #Configure main grid
