@@ -4,6 +4,7 @@ import os
 from tkinter import messagebox
 from PIL import Image
 from datetime import datetime
+from plans import load_plan_from_xml
 
 class Previous_plans_page(ctk.CTkFrame):
     #Function to display previous plans in searchable and scrollable frame
@@ -101,6 +102,13 @@ class Previous_plans_page(ctk.CTkFrame):
         self.plans_display = ctk.CTkScrollableFrame(left_column, fg_color="#F2F2F2")
         self.plans_display.grid(row=1, column=0, sticky="nsew")
 
+        #Loads and displays previous plans
+        plans = load_plan_from_xml("previous_plans.xml")
+        for i, plan in enumerate(plans):
+            #Button for each previous plan which displays in scrollable frame
+            plan_button = ctk.CTkButton(self.plans_display, height=50, text=plan["plan_date"], font=("Abadi", 20), text_color="black", border_width=2, border_color="#AEAEAE", corner_radius=1, fg_color="#E8E8E8", hover_color="white", command=lambda p=plan: self.display_previous_plan(p["drills"]))
+            plan_button.grid(row=i, column=0, pady=10, padx=10, sticky="ew")
+
         #Right Column, displays currently selected previous plan
         self.right_column = ctk.CTkFrame(self, bg_color="#F2F2F2", fg_color="#F2F2F2")
         self.right_column.grid(row=1, column=1, sticky="nsew")
@@ -109,5 +117,3 @@ class Previous_plans_page(ctk.CTkFrame):
         #Temporary Label
         temp = ctk.CTkLabel(self.right_column, text="This space will display selected previous plan")
         temp.grid(row=0, column=0)
-
-        self.load_plan_from_xml("previous_plans.xml")

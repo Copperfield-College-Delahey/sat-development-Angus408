@@ -215,11 +215,18 @@ class Drills_page(ctk.CTkFrame):
                 if any(drill.drill_name == new_drill_name for drill in self.drill_manager.drills):
                     messagebox.showerror("Error", "A drill with this name already exists")
                     return
+                
+                valid_tags = ["Shooting", "Passing", "Rebounding", "Defence", "Offence", "Dribbling"]
                 new_drill_tags = tags_entry.get().strip().capitalize()
-                #Validates user has entered a drill tag or tags
+                #Validates user has entered a drill tag or tags and that they are acceptable tags
                 if not new_drill_tags:
                     messagebox.showerror("Error", "Please enter a tag or tags")
                     return
+                new_tag_list = [tag.strip().capitalize() for tag in new_drill_tags.split(",")]
+                if not all(tag in valid_tags for tag in new_tag_list):
+                    messagebox.showerror("Error", "Please enter a valid drill tag or tags seperated by commas.\nEtiher or multiple of Shooting, Passing, Rebounding, Defence, Offence, Dribbling")
+                    return
+
                 valid_ages = ["U8s", "U10s", "U12s", "U14s", "U16s", "U18s", "U20s"] #List of valid ages to refer to in validation
                 new_drill_age = age_entry.get().strip()
                 #Validates user has entered a drill age, and that it is an acceptable correct age
@@ -238,9 +245,9 @@ class Drills_page(ctk.CTkFrame):
                         return
                 except ValueError:
                     messagebox.showerror("Error", "Drill duration must be a number")
+                    return
                 
                 new_drill_description = description_entry.get("1.0", "end-1c").strip()
-                print(f"'{new_drill_description}'", len(new_drill_description))
                 #validates drill description has been entered and is between 10 and 90 words (around 50 and 630 character)
                 if len(new_drill_description) < 50 or len(new_drill_description) > 630:
                     messagebox.showerror("Error", "Please enter a valid description betweem 50 and 630 characters")
