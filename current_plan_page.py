@@ -124,6 +124,7 @@ class Current_Plan_page(ctk.CTkFrame):
             messagebox.showinfo("Success", f"Your generated training plan has been saved as a pdf to {file_path}")
             #Calls save_plan_to_xml function (Not written by chatGPT)
             self.save_plan_to_xml("previous_plans.xml")
+            
         except Exception as e:
             messagebox.showerror("Error", f"Failed to save PDF:\n{e}")
 
