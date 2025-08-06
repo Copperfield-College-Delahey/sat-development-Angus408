@@ -134,8 +134,7 @@ class Current_Plan_page(ctk.CTkFrame):
                     "duration": row[0],
                 })
             
-            # Load existing plans
-            #plans = load_plan_from_xml("previous_plans.xml")
+            
             plans = []
             plans.append(plan_data)
             print(plans)

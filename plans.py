@@ -33,7 +33,6 @@ def save_plan_to_xml(filepath, plans):
 
 #Function to load plans from xml file onto software
 def load_plan_from_xml(filepath):
-    pass
     if not os.path.exists(filepath):
         messagebox.showerror("Error", "No previous plans file found")
         return []
