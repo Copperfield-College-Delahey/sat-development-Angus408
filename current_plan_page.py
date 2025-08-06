@@ -123,7 +123,7 @@ class Current_Plan_page(ctk.CTkFrame):
             c.save()
             messagebox.showinfo("Success", f"Your generated training plan has been saved as a pdf to {file_path}")
             
-            # Convert self.current_plan to structured dict
+            #converts to a dictionary
             plan_data = {
                 "date": datetime.today().strftime("%d/%m/%Y"),
                 "drills": []
@@ -134,11 +134,8 @@ class Current_Plan_page(ctk.CTkFrame):
                     "duration": row[0],
                 })
             
-            
             plans = []
-            plans.append(plan_data)
-            print(plans)
-            print(plan_data)
+            plans.append(plan_data)  #plans becomes a list of dictionaries 
             save_plan_to_xml("previous_plans.xml", plans)
 
         except Exception as e:
@@ -175,7 +172,20 @@ class Current_Plan_page(ctk.CTkFrame):
                                 added_drill_keys.add(drill_key)
                                 break
 
+            #Adding drills to exclude in plan if they appear in the most recently generated plan, preventing too much repition
+            previous_plans = load_plan_from_xml("previous_plans.xml")
+            if not previous_plans:
+                continue
+            else:
+                most_recent_plan = previous_plans[-1] #Last plan in list (most recently generated plan)
+
+                excluded_drills = set(drill['name']for drill in most_recent_plan.get("drill", []) if drill['name'] not in {"Freethrows", "Offences"})
+                print("Excluding drills:", excluded_drills)
+
+
             for drill in self.drill_manager.drills:
+                if drill.drill_name in excluded_drills: #Prevents having trainings that are too repetitive
+                    continue #Passses this drill and continues searching
                 #Checks for matching tag, will return true if at least one matches
                 print(f"Checking drill: {drill.drill_name} (tags: {drill.drill_tags}, age: {drill.drill_age})")
                 if any(tag in drill.drill_tags for tag in tags):
@@ -213,6 +223,8 @@ class Current_Plan_page(ctk.CTkFrame):
 
         if total_time < min_duration:
             for drill in self.drill_manager.drills:
+                if drill.drill_name in excluded_drills: #Prevents having trainings that are too repetitive
+                    continue
                 if team_age in drill.drill_age:
                         drill_key = (drill.drill_name, drill.drill_description)
                         #Prevents same drill being added to list again
@@ -239,7 +251,7 @@ class Current_Plan_page(ctk.CTkFrame):
 
         for widget in self.generated_training_plan.winfo_children():
             widget.destroy()
-        #Creates a frame and label within it for each drill in training plam
+        #Creates a frame and label within it for each drill in training plan
         for i, drill in enumerate(self.current_plan):
             duration_frame = ctk.CTkFrame(self.generated_training_plan, corner_radius=0, border_width=3, border_color="black", fg_color="white")
             duration_frame.grid(row=i, column=0, pady=5, padx=3, sticky="nsew")
@@ -277,14 +289,90 @@ class Current_Plan_page(ctk.CTkFrame):
 
     def __init__(self, parent, controller=None):
         super().__init__(parent)
-        
+        #Function creates a popup allowing users to add or delete drills from the generated plan
         def edit_plan():
             def save_plan():
-                pass
-            def delete_drill():
-                pass
+                self.current_plan = [["Time", "Drill", "Description/POE", "Diagram"]] + edited_plan
+                # Refreshes display after editing
+                for widget in self.generated_training_plan.winfo_children():
+                    widget.destroy()
+                
+                    #Creates a frame and label within it for each drill in training plan
+                for i, drill in enumerate(self.current_plan):
+                    duration_frame = ctk.CTkFrame(self.generated_training_plan, corner_radius=0, border_width=3, border_color="black", fg_color="white")
+                    duration_frame.grid(row=i, column=0, pady=5, padx=3, sticky="nsew")
+                    duration_label = ctk.CTkLabel(duration_frame, text=drill[0], font=("Abadi", 14), justify="center")
+                    duration_label.pack(expand=True, fill="both")
+                    name_frame = ctk.CTkFrame(self.generated_training_plan, corner_radius=0,border_width=3, border_color="black", fg_color="white")
+                    name_frame.grid(row=i, column=1, pady=5, padx=3, sticky="nsew")
+                    name_label = ctk.CTkLabel(name_frame, text=drill[1], font=("Abadi", 15), justify="center")
+                    name_label.pack(expand=True, fill="both")
+                    description_frame = ctk.CTkFrame(self.generated_training_plan, corner_radius=0, border_width=3, border_color="black", fg_color="white")
+                    description_frame.grid(row=i, column=2, pady=5, padx=3, sticky="nsew")
+                    description_label = ctk.CTkLabel(description_frame, wraplength=250, justify="left", text=drill[2], font=("Abadi", 12))
+                    description_label.pack(expand=True, fill="both")
+                    #Returns true if object is a CTkImage
+                    if isinstance(drill[3], ctk.CTkImage):
+                        diagram_frame = ctk.CTkFrame(self.generated_training_plan, corner_radius=0, border_width=3, border_color="black", fg_color="white")
+                        diagram_label = ctk.CTkLabel(diagram_frame, image=drill[3], text="", justify="center")
+                    else:
+                        diagram_frame =  ctk.CTkFrame(self.generated_training_plan, corner_radius=0, border_width=3, border_color="black", fg_color="white")
+                        diagram_label = ctk.CTkLabel(diagram_frame, text=drill[3], justify="center")
+                    diagram_frame.grid(row=i, column=3, pady=5, padx=3, sticky="nsew")
+                    diagram_label.pack(expand=True, fill="both")
+                    #Changing style of header row 
+                    if i == 0:
+                        duration_frame.configure(fg_color="#e0e0e0")
+                        duration_label.configure(font=("Abadi", 16, "bold"))
+                        name_frame.configure(fg_color="#e0e0e0")
+                        name_label.configure(font=("Abadi", 16, "bold"))
+                        description_frame.configure(fg_color="#e0e0e0")
+                        description_label.configure(font=("Abadi", 16, "bold"))
+                        diagram_frame.configure(fg_color="#e0e0e0")
+                        diagram_label.configure(font=("Abadi", 16, "bold"))
+
+                        edit_plan_popup.destroy()
+                        messagebox.showinfo("Saved", "Training plan has been updated!")
+
+
+            #Fucntion removes the drill at the same index as button and updates popup
+            def delete_drill(drill_index):
+                edited_plan.pop(drill_index)
+                refresh_popup()
+
+            #Adds user selected drill to the generated training plan
             def add_drill():
-                pass
+                selected_drill = drills_dropdown.get()
+
+                for drill in self.drill_manager.drills:
+                    if drill.drill_name == selected_drill:
+                        drill_key = (drill.drill_name, drill.drill_description)
+                        if drill.drill_diagram != "N/A":
+                            diagram = ctk.CTkImage(light_image=Image.open(drill.drill_diagram), dark_image=Image.open(drill.drill_diagram), size=(130, 130))
+                        else:
+                            diagram = "N/A"
+                        new_drill = [drill.drill_duration, drill.drill_name, drill.drill_description, diagram]
+                        edited_plan.append(new_drill)
+                        refresh_popup()
+                        break
+
+            #Function to refresh the popo_up and display drills in the plan with delete button adjacent
+            def refresh_popup():
+                #Clears frame
+                for widget in drill_frame.winfo_children():
+                    widget.destroy()
+
+                #Loops through plan displaying each drill in a label
+                for i, drill in enumerate(edited_plan):
+                    drill_label = ctk.CTkLabel(drill_frame, text=f"{drill[1]} - {drill[0]} mins")
+                    drill_label.grid(row=i, column=0, pady=5, padx=5)
+
+                    delete_button = ctk.CTkButton(drill_frame, text="Delete", command=lambda i=i: delete_drill(i))
+                    delete_button.grid(row=i, column=1, pady=5, padx=5)
+
+            #Copies current plan minus the header to allow for edititing
+            edited_plan = self.current_plan[1:].copy()
+
             #Creates a popup window for users to edit in
             edit_plan_popup = ctk.CTkToplevel(fg_color="#F2F2F2")
             edit_plan_popup.title("Edit generated training plan")
@@ -295,6 +383,7 @@ class Current_Plan_page(ctk.CTkFrame):
             edit_plan_popup.grid_columnconfigure(1, weight=1)
             edit_plan_popup.grid_columnconfigure(2, weight=1)
             edit_plan_popup.grid_rowconfigure(0, weight=1)
+            edit_plan_popup.grid_rowconfigure(1, weight=1)
             #Dropdown menue with drill names for user to view and selected desired drill to add to plan
             drill_names = [drill.drill_name for drill in self.drill_manager.drills]
             drills_dropdown = ctk.CTkOptionMenu(edit_plan_popup, values=drill_names)
@@ -308,13 +397,12 @@ class Current_Plan_page(ctk.CTkFrame):
 
             save_button = ctk.CTkButton(edit_plan_popup, text="Save Edited plan", command=save_plan)
             save_button.grid(row=0, column=0)
-            #Loops through _____ skipping the header row
-            for i, drill in enumerate(self.current_plan[1:], start=2):
-                drill_label = ctk.CTkLabel(edit_plan_popup, text=f"{drill[1]} - {drill[0]} mins")
-                drill_label.grid(row=i, column=0, pady=5, padx=5)
 
-                delete_button = ctk.CTkButton(edit_plan_popup, text="Delete", command=delete_drill)
-                delete_button.grid(row=i, column=1, paady=5, padx=5)
+            # Frame to hold dynamic drill rows
+            drill_frame = ctk.CTkFrame(edit_plan_popup)
+            drill_frame.grid(row=1, column=0, columnspan=3, sticky="nsew", padx=5, pady=10)
+
+            refresh_popup()
 
         self.show_frame = controller
         #Load Drill_manager
@@ -400,5 +488,5 @@ class Current_Plan_page(ctk.CTkFrame):
         edit_button = ctk.CTkButton(row_1, corner_radius=10, text="Edit Training \nPlan", font=("ADLaM Display", 25), text_color="white", height=50, fg_color="#FF7A53", hover_color="#c7c7c7", image=pencil_icon, compound="right", command=edit_plan)
         edit_button.grid(row=0, column=1, padx=10, pady=10)
 
-        instruction_label = ctk.CTkLabel(left_column, text="Want to remove or add a drill to the generated plan? Click the Edit button and click the delete button to remove certain drills, or the add button to include any drills.\n Happy with your generated training plan? Click the Download and Save button to convert the plan to a printable pdf file. This file will automatically be saved to both your device and this software.", font=("Abadi", 16), text_color="black", wraplength=300, justify="center")
+        instruction_label = ctk.CTkLabel(left_column, text="Want to remove or add a drill to the generated plan? Click the Edit button and click the delete button to remove certain drills, or the add button to include any drills.\n \n Happy with your generated training plan? Click the Download and Save button to convert the plan to a printable pdf file. This file will automatically be saved to both your device and this software, allowing you to print and return back to it", font=("Abadi", 16), text_color="black", wraplength=300, justify="center")
         instruction_label.grid(row=2, column=0, pady=5, padx=10, sticky="new")

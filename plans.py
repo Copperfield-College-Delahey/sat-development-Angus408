@@ -29,7 +29,7 @@ def save_plan_to_xml(filepath, plans):
     tree = ET.ElementTree(root)
     tree.write(filepath, encoding="utf-8", xml_declaration=True)
 
-    messagebox.showinfo("Success", "Training plan has been successfully saved")
+    messagebox.showinfo("Success", "Training plan has been successfully saved to previous_plans.xml")
 
 #Function to load plans from xml file onto software
 def load_plan_from_xml(filepath):

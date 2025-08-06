@@ -11,7 +11,6 @@ class Previous_plans_page(ctk.CTkFrame):
     def display_previous_plan(self, drills):
         for widget in self.right_column.winfo_children():
             widget.destroy()
-        print("Selected drills:", drills)
         
         for i, drill in enumerate(drills):
             drill_label = ctk.CTkLabel(self.right_column, text=f"   {drill['name']}   -   {drill['duration']} mins   ", font=("Abadi", 20), text_color="black", corner_radius=1, fg_color="#E8E8E8")
