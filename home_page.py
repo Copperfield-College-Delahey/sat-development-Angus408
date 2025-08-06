@@ -80,12 +80,12 @@ class Home_page(ctk.CTkFrame):
         #Configure button to display stats page and load stats from excel
         import_stats_button.configure(command=lambda: self.show_frame("Stats_page"))
     
-        generate_plan_button = ctk.CTkButton(right_column, corner_radius=10, text="Generate Training \nPlan", font=("ADLaM Display", 25), text_color="white", image=file_icon, fg_color="#FF7A53", compound="right", hover_color="#c7c7c7")
+        generate_plan_button = ctk.CTkButton(right_column, corner_radius=10, text="Generate Training \nPlan", font=("ADLaM Display", 25), text_color="white", image=file_icon, fg_color="#FF7A53", compound="right", hover_color="#c7c7c7", command=lambda: self.show_frame("Stats_page"))
         generate_plan_button.grid(row=1, column=0, padx=10, pady=10, sticky="ew")
         generate_plan_label = ctk.CTkLabel(right_column, text="Click this button to generate a training plan, which once converted to a pdf will look like the image on the left", font=("Abadi", 15), wraplength=300, justify="left")
         generate_plan_label.grid(row=1, column=1, padx=10, pady=10, sticky="w")
 
-        new_drill_button = ctk.CTkButton(right_column, corner_radius=10, text="Add New Drill     ", font=("ADLaM Display", 25), text_color="white", height=50, fg_color="#FF7A53", image=drills_icon, compound="right", hover_color="#c7c7c7")
+        new_drill_button = ctk.CTkButton(right_column, corner_radius=10, text="Add New Drill     ", font=("ADLaM Display", 25), text_color="white", height=50, fg_color="#FF7A53", image=drills_icon, compound="right", hover_color="#c7c7c7", command=lambda: self.show_frame("Drills_page"))
         new_drill_button.grid(row=2, column=0, padx=10, pady=10, sticky="ew")
         new_drill_label = ctk.CTkLabel(right_column, text="Click this button to add a new drill to the drills database", font=("Abadi", 15), wraplength=300, justify="left")
         new_drill_label.grid(row=2, column=1, padx=10, pady=10, sticky="w")

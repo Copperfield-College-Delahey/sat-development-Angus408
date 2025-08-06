@@ -103,7 +103,8 @@ class Previous_plans_page(ctk.CTkFrame):
         self.plans_display.grid(row=1, column=0, sticky="nsew")
 
         #Loads and displays previous plans
-        plans = load_plan_from_xml("previous_plans.xml")
+       # plans = load_plan_from_xml("previous_plans.xml")
+        plans = []
         for i, plan in enumerate(plans):
             #Button for each previous plan which displays in scrollable frame
             plan_button = ctk.CTkButton(self.plans_display, height=50, text=plan["plan_date"], font=("Abadi", 20), text_color="black", border_width=2, border_color="#AEAEAE", corner_radius=1, fg_color="#E8E8E8", hover_color="white", command=lambda p=plan: self.display_previous_plan(p["drills"]))
