@@ -312,7 +312,7 @@ class Drills_page(ctk.CTkFrame):
 
             #Button to save new drill
             save_icon = ctk.CTkImage(light_image=Image.open("Images/save icon.png"), dark_image=Image.open("Images/save icon.png"), size=(15, 15))
-            save_button = ctk.CTkButton(new_drill_popup, corner_radius=10, text="Save New Drill", font=("ADLaM Display", 18), text_color="White", hover_color="#c7c7c7", fg_color="green", image=save_icon, compound="right", command=save_new_drill)
+            save_button = ctk.CTkButton(new_drill_popup, corner_radius=10, text="Save New Drill", font=("ADLaM Display", 18), text_color="White", hover_color="#c7c7c7", fg_color="#7ec76b", image=save_icon, compound="right", command=save_new_drill)
             save_button.grid(row=3, column=1)
 
         new_drill_button = ctk.CTkButton(left_column, corner_radius=10, text="Add New Drill", font=("ADLaM Display", 25), text_color="white", height=65, width=100, fg_color="#FF7A53", hover_color="#c7c7c7", command=add_new_drill)
