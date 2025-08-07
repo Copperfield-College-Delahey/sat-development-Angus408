@@ -19,7 +19,7 @@ class Previous_plans_page(ctk.CTkFrame):
     def __init__(self, parent, controller=None):
         super().__init__(parent)
         self.show_frame = controller
-            
+        
         #Previous plans Page content
         #Configure main grid
         self.grid_columnconfigure(0, weight=1) #Left column
@@ -95,8 +95,8 @@ class Previous_plans_page(ctk.CTkFrame):
         left_column.grid_rowconfigure(1, weight=1)
 
         #User search entry box
-        plan_search_entry = ctk.CTkEntry(left_column, placeholder_text="Search for Previous Training Plan(s)", font=("Abadi", 20), placeholder_text_color="Black", justify="center")
-        plan_search_entry.grid(row=0, column=0, columnspan=2, padx=10, pady=10, sticky="ew")
+        self.plan_search_entry = ctk.CTkEntry(left_column, placeholder_text="Search for Previous Training Plan(s)", font=("Abadi", 20), placeholder_text_color="Black", justify="center")
+        self.plan_search_entry.grid(row=0, column=0, columnspan=2, padx=10, pady=10, sticky="ew")
 
         #Scrollable Frame to display all previous plans
         self.plans_display = ctk.CTkScrollableFrame(left_column, fg_color="#F2F2F2")

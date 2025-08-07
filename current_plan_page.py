@@ -289,15 +289,16 @@ class Current_Plan_page(ctk.CTkFrame):
 
     def __init__(self, parent, controller=None):
         super().__init__(parent)
+        self.current_plan = None #Ensure variable exists for validation
         #Function creates a popup allowing users to add or delete drills from the generated plan
         def edit_plan():
             def save_plan():
                 self.current_plan = [["Time", "Drill", "Description/POE", "Diagram"]] + edited_plan
-                # Refreshes display after editing
+                #Deletes contents of display in order to update with new contents
                 for widget in self.generated_training_plan.winfo_children():
                     widget.destroy()
-                
-                    #Creates a frame and label within it for each drill in training plan
+                #Recreates training plan with updated drills
+                #Creates a frame and label within it for each drill in training plan
                 for i, drill in enumerate(self.current_plan):
                     duration_frame = ctk.CTkFrame(self.generated_training_plan, corner_radius=0, border_width=3, border_color="black", fg_color="white")
                     duration_frame.grid(row=i, column=0, pady=5, padx=3, sticky="nsew")
@@ -346,7 +347,6 @@ class Current_Plan_page(ctk.CTkFrame):
 
                 for drill in self.drill_manager.drills:
                     if drill.drill_name == selected_drill:
-                        drill_key = (drill.drill_name, drill.drill_description)
                         if drill.drill_diagram != "N/A":
                             diagram = ctk.CTkImage(light_image=Image.open(drill.drill_diagram), dark_image=Image.open(drill.drill_diagram), size=(130, 130))
                         else:
@@ -370,8 +370,13 @@ class Current_Plan_page(ctk.CTkFrame):
                     delete_button = ctk.CTkButton(drill_frame, text="Delete", font=("Abadi", 17),  text_color="white", hover_color="#c7c7c7", fg_color="#bd4d4d", corner_radius=10, command=lambda i=i: delete_drill(i))
                     delete_button.grid(row=i, column=1, pady=5, padx=5)
 
-            #Copies current plan minus the header to allow for edititing
-            edited_plan = self.current_plan[1:].copy()
+            #Ensures training plan exists before user tries to edit it
+            if self.current_plan:
+                #Copies current plan minus the header to allow for edititing
+                edited_plan = self.current_plan[1:].copy()
+            else:
+                messagebox.showerror("Error", "Please generate a training plan first")
+                return
 
             #Creates a popup window for users to edit in
             edit_plan_popup = ctk.CTkToplevel(fg_color="#F2F2F2")
