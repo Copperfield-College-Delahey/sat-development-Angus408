@@ -30,79 +30,82 @@ class Stats_page(ctk.CTkFrame):
                     messagebox.showerror("Error", "File could not be opened. Please import an excel file")
                 except FileNotFoundError:
                     messagebox.showerror("Error", "File was not found. Please try again")
+                #Trys to analyse statistics displaying error message if not, concluding user has imported something that doesn't match the template
+                try: 
+                    #Validates that all required columns (given by list) are present, displaying an error message if not
+                    required_columns = ["Total FGM", "Total FGA", "FTM", "FTA", "O - Boards", "D - Boards", "Assists", "Steals", "Blocks", "Turnovers", "Fouls"]
+                    if not all(col in data_frame.columns for col in required_columns):
+                        messagebox.showerror("Error", "Please import statistics which match the template on the home screen, including correct headings and starting from the first cell")
 
-                #Validates that all required columns (given by list) are present, displaying an error message if not
-                required_columns = ["Total FGM", "Total FGA", "FTM", "FTA", "O - Boards", "D - Boards", "Assists", "Steals", "Blocks", "Turnovers", "Fouls"]
-                if not all(col in data_frame.columns for col in required_columns):
-                    messagebox.showerror("Error", "Please import statistics which match the template on the home screen, including correct headings")
+                    
+                    #List of analysis to be added into table. Placed here means old data will be cleared
+                    analysis = [["Focuses","Ammount"]]   #Header row
 
-                
-                #List of analysis to be added into table. Placed here means old data will be cleared
-                analysis = [["Focuses","Ammount"]]   #Header row
+                    #Calculates Total Field Goal percentage and appends list with analysis on focus and amount of drills
+                    total_FGP = data_frame["Total FGM"].sum()/data_frame["Total FGA"].sum()*100
+                    if total_FGP < 30:
+                        analysis.append(["Shooting & Offence", "x3"])
+                    elif total_FGP < 50:
+                        analysis.append(["Shooting & Offence", "x2"])
+                    else:
+                        analysis.append(["Shooting", "x1"])
 
-                #Calculates Total Field Goal percentage and appends list with analysis on focus and amount of drills
-                total_FGP = data_frame["Total FGM"].sum()/data_frame["Total FGA"].sum()*100
-                if total_FGP < 30:
-                    analysis.append(["Shooting & Offence", "x3"])
-                elif total_FGP < 50:
-                    analysis.append(["Shooting & Offence", "x2"])
-                else:
-                    analysis.append(["Shooting", "x1"])
+                    #Calculates Total Free Throw percentage and appends list with analysis on focus and amount of drills    
+                    total_FTP = data_frame["FTM"].sum()/data_frame["FTA"].sum()*100
+                    if total_FTP < 50:
+                        analysis.append(["Freethrows", "x2"])
+                    else:
+                        analysis.append(["Freethrows", "x1"])
 
-                #Calculates Total Free Throw percentage and appends list with analysis on focus and amount of drills    
-                total_FTP = data_frame["FTM"].sum()/data_frame["FTA"].sum()*100
-                if total_FTP < 50:
-                    analysis.append(["Freethrows", "x2"])
-                else:
-                    analysis.append(["Freethrows", "x1"])
+                    #Calculates total rebounds and appends list with analysis on focus and amount of drills
+                    rebounds = data_frame["O - Boards"].sum()+data_frame["D - Boards"].sum()
+                    if rebounds < 10:
+                        analysis.append(["Rebounding & Defence", "x2"])
+                    else:
+                        analysis.append(["Rebounnding", "x1"])
 
-                #Calculates total rebounds and appends list with analysis on focus and amount of drills
-                rebounds = data_frame["O - Boards"].sum()+data_frame["D - Boards"].sum()
-                if rebounds < 10:
-                    analysis.append(["Rebounding & Defence", "x2"])
-                else:
-                    analysis.append(["Rebounnding", "x1"])
+                    #Calculates total assists and appends list with analysis on focus and amount of drills
+                    assists = data_frame["Assists"].sum()
+                    if assists < 10:
+                        analysis.append(["Passing & Offence", "x2"])
+                    else:
+                        analysis.append(["Offence", "x1"])
 
-                #Calculates total assists and appends list with analysis on focus and amount of drills
-                assists = data_frame["Assists"].sum()
-                if assists < 10:
-                    analysis.append(["Passing & Offence", "x2"])
-                else:
-                    analysis.append(["Offence", "x1"])
+                    #Calculates total steals and appends list with analysis on focus and amount of drills
+                    steals = data_frame["Steals"].sum()
+                    if steals < 8:
+                        analysis.append(["Defence", "x2"])
+                    else:
+                        analysis.append(["Defence", "x1"])
 
-                #Calculates total steals and appends list with analysis on focus and amount of drills
-                steals = data_frame["Steals"].sum()
-                if steals < 8:
-                    analysis.append(["Defence", "x2"])
-                else:
-                    analysis.append(["Defence", "x1"])
+                    #Calculates total blocks and appends list with analysis on focus and amount of drills
+                    blocks = data_frame["Blocks"].sum()
+                    if blocks < 2:
+                        analysis.append(["Defence", "x1"])
 
-                #Calculates total blocks and appends list with analysis on focus and amount of drills
-                blocks = data_frame["Blocks"].sum()
-                if blocks < 2:
-                    analysis.append(["Defence", "x1"])
+                    #Calculates total turnovers and appends list with analysis on focus and amount of drills
+                    turnovers = data_frame["Turnovers"].sum()
+                    if turnovers > 10:
+                        analysis.append(["Dribbling & Passing", "x2"])
+                    else:
+                        analysis.append(["Dribbling & Passing", "x1"])
+                    
+                    #Calculates total fouls and appends list with analysis on focus and amount of drills
+                    fouls = data_frame["Fouls"].sum()
+                    if fouls > 10:
+                        analysis.append(["Defence", "x2"])
+                    else:
+                        analysis.append(["Defence", "x1"])
 
-                #Calculates total turnovers and appends list with analysis on focus and amount of drills
-                turnovers = data_frame["Turnovers"].sum()
-                if turnovers > 10:
-                    analysis.append(["Dribbling & Passing", "x2"])
-                else:
-                    analysis.append(["Dribbling & Passing", "x1"])
-                
-                #Calculates total fouls and appends list with analysis on focus and amount of drills
-                fouls = data_frame["Fouls"].sum()
-                if fouls > 10:
-                    analysis.append(["Defence", "x2"])
-                else:
-                    analysis.append(["Defence", "x1"])
+                    #Table to display analysed stats
+                    stats_analysis = CTkTable(master=right_column, row=len(analysis), column=2, values=analysis, corner_radius=1, header_color="#b0b0b0", colors=["#dbdbdb","#dbdbdb"], border_width=1, border_color="#7a7878", font=("Abadi", 20), text_color="Black")
+                    stats_analysis.grid(row=0, column=0, pady=15, padx=15, sticky="nsew")
 
-                #Table to display analysed stats
-                stats_analysis = CTkTable(master=right_column, row=len(analysis), column=2, values=analysis, corner_radius=1, header_color="#b0b0b0", colors=["#dbdbdb","#dbdbdb"], border_width=1, border_color="#7a7878", font=("Abadi", 20), text_color="Black")
-                stats_analysis.grid(row=0, column=0, pady=15, padx=15, sticky="nsew")
+                    self.stats_analysed = True
 
-                self.stats_analysed = True
-
-                messagebox.showinfo("Success", "Statistics have been Analysed!")
+                    messagebox.showinfo("Success", "Statistics have been Analysed!")
+                except:
+                    messagebox.showerror("Error", "Please import statistics which match the template on the home screen, including correct headings and starting from the first cell")
             self.analysis = analysis 
 
         #Function to get team age, validate it and pass it to the current_plan_page

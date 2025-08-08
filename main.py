@@ -1,4 +1,9 @@
-'''Stats2Drills GUI Application. date started: 23/06/2025'''
+'''Stats2Drills
+   Software that analyses imported basketball statistics and formulates a relevant training plan. 
+   This plan can then be edited and saved to suit coaches needs. Coaches are also able to search 
+   and add drills within the software.
+   Date Started: 23/06/2025
+   Created by Angus Morgan'''
 
 import customtkinter as ctk
 from PIL import Image
