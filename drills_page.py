@@ -263,7 +263,7 @@ class Drills_page(ctk.CTkFrame):
                     filename = os.path.basename(self.file_path).replace(" ", "_").lower()
                     target_path = os.path.join("drill_diagrams", filename)
                     shutil.copy(self.file_path, target_path)
-                    new_drill_diagram = os.path.splitext(filename)[0]
+                    new_drill_diagram = filename
                 except Exception as e:
                     messagebox.showerror("Error", f"Failed to copy image: {e}")
                     return
@@ -272,7 +272,7 @@ class Drills_page(ctk.CTkFrame):
                 last_drill_id = int(self.drill_manager.drills[-1].drill_id) #Gets the id of the last drill within the list of drills and coverts to integer
                 new_drill_id = str(last_drill_id + 1).zfill(4)  #Adds one to the value and converts back to a string, with 4 digits eg:"0004"
 
-                new_drill = Drill(new_drill_id, new_drill_name, new_drill_tags, new_drill_age, new_drill_description, new_drill_duration, new_drill_diagram)
+                new_drill = Drill(new_drill_id, new_drill_name, new_tag_list, new_drill_age, new_drill_description, new_drill_duration, new_drill_diagram)
                 self.drill_manager.drills.append(new_drill)
                 self.drill_manager.save_to_xml("drills.xml") #Permanently saves new drill to xml file
                 self.display_drills() #Updates drills display
