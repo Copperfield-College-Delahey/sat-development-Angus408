@@ -5,23 +5,22 @@ from tkinter import messagebox
 
 #Function to save plans onto xml file
 def save_plan_to_xml(filepath, plans):
-    print("Hello")
+    #print("Hello")
     # If file exists, load and extend existing XML
     if os.path.exists(filepath):
         tree = ET.parse(filepath)
         root = tree.getroot()
     else:
         root = ET.Element("plans")
-    print("Plans received:", plans)
+    #print("Plans received:", plans)
     #save individual plans
     for plan in plans:
-        print("hi")
         plan_elem = ET.SubElement(root, "plan")
         date_elem = ET.SubElement(plan_elem, "plan_date")
         date_elem.text = plan['date']
         
         for drill in plan["drills"]:
-            print(drill)
+            #print(drill)
             drill_elem = ET.SubElement(plan_elem, "drill")
             ET.SubElement(drill_elem, "drill_name").text = drill["name"]
             ET.SubElement(drill_elem, "drill_duration").text = str(drill["duration"])

@@ -110,7 +110,7 @@ class Previous_plans_page(ctk.CTkFrame):
 
         #Loads and displays previous plans
         plans = load_plan_from_xml("previous_plans.xml")
-        print("loaded plans:", plans)
+        #print("loaded plans:", plans)
 
         for i, plan in enumerate(plans):
             #Button for each previous plan which displays in scrollable frame

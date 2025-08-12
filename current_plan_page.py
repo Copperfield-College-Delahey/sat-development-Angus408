@@ -110,7 +110,7 @@ class Current_Plan_page(ctk.CTkFrame):
                         img_y = y - (row_height + img_height) // 2 + 10
                         c.drawImage(img_reader, img_x, img_y, width=img_width, height=img_height)
                     except Exception as e:
-                        print("Failed to draw image:", e)
+                        messagebox.showerror("Error", "Failed to draw image:", e)
                 #Move to next row
                 y -= row_height
 
@@ -156,7 +156,7 @@ class Current_Plan_page(ctk.CTkFrame):
             #Ensures system can search for either of the tags preventing error due to analysis having "Shooting & Offence"
             tags = [tag.strip() for tag in system_drill_search.split("&")]
 
-            print(f"\nSearching for drills tagged '{system_drill_search}' for age group '{team_age}' (x{drill_search_number})")
+            #print(f"\nSearching for drills tagged '{system_drill_search}' for age group '{team_age}' (x{drill_search_number})")
             #Changes value to just integer eg("x3"-> 3)
             amount = int(drill_search_number.strip().lower().replace("x", ""))
             #Will keep track of amount of drills based off drill_search_number 
@@ -180,14 +180,14 @@ class Current_Plan_page(ctk.CTkFrame):
                 most_recent_plan = previous_plans[-1] #Last plan in list (most recently generated plan)
 
                 excluded_drills = set(drill['name']for drill in most_recent_plan.get("drill", []) if drill['name'] not in {"Freethrows", "Offences"})
-                print("Excluding drills:", excluded_drills)
+                #print("Excluding drills:", excluded_drills)
 
 
             for drill in self.drill_manager.drills:
                 if drill.drill_name in excluded_drills: #Prevents having trainings that are too repetitive
                     continue #Passses this drill and continues searching
                 #Checks for matching tag, will return true if at least one matches
-                print(f"Checking drill: {drill.drill_name} (tags: {drill.drill_tags}, age: {drill.drill_age})")
+                #print(f"Checking drill: {drill.drill_name} (tags: {drill.drill_tags}, age: {drill.drill_age})")
                 if any(tag in drill.drill_tags for tag in tags):
                     #Checks if drill also matches team_age
                     if team_age in drill.drill_age:
@@ -200,7 +200,7 @@ class Current_Plan_page(ctk.CTkFrame):
                             else:
                                 diagram = "N/A"  #For Drills without a diagram ie. freethrows, they remain as N/A
                             drill_details = [drill.drill_duration, drill.drill_name, drill.drill_description, diagram]
-                            print(f"Checking if drill already added: {drill.drill_name} (ID: {drill.drill_id})")
+                            #print(f"Checking if drill already added: {drill.drill_name} (ID: {drill.drill_id})")
                             plan_contents.append(drill_details)
                             added_drills += 1
                             added_drill_keys.add(drill_key)

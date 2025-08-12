@@ -39,7 +39,7 @@ class Stats_page(ctk.CTkFrame):
 
                     
                     #List of analysis to be added into table. Placed here means old data will be cleared
-                    analysis = [["Focuses","Ammount"]]   #Header row
+                    analysis = [["Focuses","Amount"]]   #Header row
 
                     #Calculates Total Field Goal percentage and appends list with analysis on focus and amount of drills
                     total_FGP = data_frame["Total FGM"].sum()/data_frame["Total FGA"].sum()*100
@@ -62,7 +62,7 @@ class Stats_page(ctk.CTkFrame):
                     if rebounds < 10:
                         analysis.append(["Rebounding & Defence", "x2"])
                     else:
-                        analysis.append(["Rebounnding", "x1"])
+                        analysis.append(["Rebounding", "x1"])
 
                     #Calculates total assists and appends list with analysis on focus and amount of drills
                     assists = data_frame["Assists"].sum()
