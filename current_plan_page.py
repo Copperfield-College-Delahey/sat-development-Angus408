@@ -381,7 +381,7 @@ class Current_Plan_page(ctk.CTkFrame):
             #Creates a popup window for users to edit in
             edit_plan_popup = ctk.CTkToplevel(fg_color="#F2F2F2")
             edit_plan_popup.title("Edit generated training plan")
-            edit_plan_popup.geometry("650x600")
+            edit_plan_popup.geometry("650x680")
             edit_plan_popup.transient(parent)  #Ensures the window opens up and remains above parent
             edit_plan_popup.grab_set()  #Prevents users from interacting with other windows
             edit_plan_popup.grid_columnconfigure(0, weight=1)
@@ -391,13 +391,13 @@ class Current_Plan_page(ctk.CTkFrame):
             edit_plan_popup.grid_rowconfigure(1, weight=1)
             #Dropdown menue with drill names for user to view and selected desired drill to add to plan
             drill_names = [drill.drill_name for drill in self.drill_manager.drills]
-            drills_dropdown = ctk.CTkOptionMenu(edit_plan_popup, values=drill_names, text_color="white", font=("Abadi", 17), fg_color="#FF7A53", button_color="#FF7A53", button_hover_color="#c7c7c7", corner_radius=10,)
-            drills_dropdown.grid(row=0, column=2, pady=5, padx=5, sticky="ew")
+            drills_dropdown = ctk.CTkOptionMenu(edit_plan_popup, height=45, values=drill_names, text_color="white", font=("Abadi", 17), fg_color="#FF7A53", button_color="#FF7A53", button_hover_color="#c7c7c7", corner_radius=10,)
+            drills_dropdown.grid(row=0, column=1, pady=5, padx=5, sticky="ew")
 
-            add_button = ctk.CTkButton(edit_plan_popup, text="Add Drill", font=("Abadi", 17), text_color="white", corner_radius=10, fg_color="#FF7A53", hover_color="#c7c7c7", command=add_drill)
-            add_button.grid(row=0, column=1, pady=5, padx=5, sticky="ew")
+            add_button = ctk.CTkButton(edit_plan_popup, height=45, text="Add Drill", font=("Abadi", 17), text_color="white", corner_radius=10, fg_color="#FF7A53", hover_color="#c7c7c7", command=add_drill)
+            add_button.grid(row=0, column=2, pady=5, padx=5, sticky="ew")
 
-            save_button = ctk.CTkButton(edit_plan_popup, text="Save", font=("Abadi", 17), text_color="white", hover_color="#c7c7c7", fg_color="#7ec76b", corner_radius=10, command=save_plan)
+            save_button = ctk.CTkButton(edit_plan_popup, height=45, text="Save", font=("Abadi", 17), text_color="white", hover_color="#c7c7c7", fg_color="#7ec76b", corner_radius=10, command=save_plan)
             save_button.grid(row=0, column=0, pady=5, padx=5, sticky="ew")
 
             # Frame to hold dynamic drill rows

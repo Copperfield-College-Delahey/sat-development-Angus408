@@ -94,6 +94,10 @@ class Previous_plans_page(ctk.CTkFrame):
         left_column.grid_rowconfigure(0, weight=1)
         left_column.grid_rowconfigure(1, weight=1)
 
+        '''Due to time constraints the search feature has not been constructed.This is a minor 
+        feature and coaches still have the ability to mannually scroll through previous plans.
+        This function will be completed should the software be scaled further'''
+
         #User search entry box
         self.plan_search_entry = ctk.CTkEntry(left_column, placeholder_text="Search for Previous Training Plan(s)", font=("Abadi", 20), placeholder_text_color="Black", justify="center")
         self.plan_search_entry.grid(row=0, column=0, columnspan=2, padx=10, pady=10, sticky="ew")

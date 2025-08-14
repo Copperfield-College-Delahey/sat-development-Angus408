@@ -201,7 +201,7 @@ class Drills_page(ctk.CTkFrame):
                         #print("Diagram:", self.file_path)
                         diagram_button.configure(text=os.path.basename(self.file_path))
                         #Inclusion of message suggested from Beta Testing
-                        #messagebox.showinfo("Success", "Diagram has been selected")
+                        messagebox.showinfo("Success", "Diagram has been selected")
                     except Exception as e:
                         messagebox.showerror("Error", "Failed to load diagram. Please ensure you select a png file")
                 else:
@@ -302,7 +302,7 @@ class Drills_page(ctk.CTkFrame):
             age_entry.grid(row=1, column=0)
             duration_entry = ctk.CTkEntry(new_drill_popup, placeholder_text="Enter Drill Duration", font=("Abadi", 14), placeholder_text_color="Black", justify="center")
             duration_entry.grid(row=1, column=1)
-            textbox_label = ctk.CTkLabel(new_drill_popup, text="Enter Drill Description in\n textbox on the right\n --->", font=("Abadi", 16), text_color="Black", justify="center")
+            textbox_label = ctk.CTkLabel(new_drill_popup, text="Enter Drill Description in\n textbox on the right\n --->", font=("Abadi", 18), text_color="Black", justify="center")
             textbox_label.grid(row=2, column=0)
             description_entry = ctk.CTkTextbox(new_drill_popup, border_width=2, border_color="#AEAEAE")
             description_entry.grid(row=2, column=1)
